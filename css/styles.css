@@ -185,7 +185,7 @@ ul, ol {
 }
 
 /* ============================================
-   Header - Neon Filament Theme
+   Header - Neon Filament Theme (Performance Optimized)
    ============================================ */
 
 .site-header {
@@ -204,6 +204,7 @@ ul, ol {
   height: 180px;
   position: relative;
   overflow: hidden;
+  contain: layout style paint;
 }
 
 /* Filament Background Container */
@@ -212,6 +213,7 @@ ul, ol {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  contain: strict;
 }
 
 .filament-strands {
@@ -220,9 +222,71 @@ ul, ol {
   position: absolute;
   top: 0;
   left: 0;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-/* Tron Grid Overlay */
+/* Filament path styles - CSS glow instead of SVG filters */
+.filament-path {
+  opacity: 0.85;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+.filament-path.strand-cyan {
+  filter: drop-shadow(0 0 4px #00f5ff);
+  animation: strand-float-1 12s ease-in-out infinite;
+}
+
+.filament-path.strand-magenta {
+  filter: drop-shadow(0 0 4px #ff00ff);
+  animation: strand-float-2 14s ease-in-out infinite;
+}
+
+.filament-path.strand-green {
+  filter: drop-shadow(0 0 3px #00ff88);
+  animation: strand-float-3 16s ease-in-out infinite;
+}
+
+.filament-path.strand-orange {
+  filter: drop-shadow(0 0 3px #ff6600);
+  animation: strand-float-4 13s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.filament-path.strand-purple {
+  filter: drop-shadow(0 0 2px #aa55ff);
+  animation: strand-float-5 15s ease-in-out infinite;
+  opacity: 0.65;
+}
+
+/* GPU-accelerated transform animations instead of path morphing */
+@keyframes strand-float-1 {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-8px) translateZ(0); }
+}
+
+@keyframes strand-float-2 {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(10px) translateZ(0); }
+}
+
+@keyframes strand-float-3 {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-6px) translateZ(0); }
+}
+
+@keyframes strand-float-4 {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(7px) translateZ(0); }
+}
+
+@keyframes strand-float-5 {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-5px) translateZ(0); }
+}
+
+/* Tron Grid Overlay - static, no animation */
 .tron-grid {
   position: absolute;
   inset: 0;
@@ -266,7 +330,7 @@ ul, ol {
   color: var(--color-primary);
 }
 
-/* Neon Spool Icon */
+/* Neon Spool Icon - Optimized */
 .logo-icon.neon-spool {
   display: flex;
   align-items: center;
@@ -274,10 +338,44 @@ ul, ol {
 }
 
 .spool-icon {
-  filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-/* Neon Logo Text */
+/* Spool rings with CSS animations */
+.spool-ring {
+  stroke: url(#spool-gradient);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.spool-ring.spool-outer {
+  stroke: #00f5ff;
+  filter: drop-shadow(0 0 4px #00f5ff);
+  animation: spool-rotate 30s linear infinite;
+}
+
+.spool-ring.spool-middle {
+  stroke: #ff00ff;
+  filter: drop-shadow(0 0 3px #ff00ff);
+  animation: spool-rotate-reverse 25s linear infinite;
+}
+
+.spool-hub {
+  filter: drop-shadow(0 0 3px #00f5ff);
+}
+
+@keyframes spool-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spool-rotate-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Neon Logo Text - simplified shadows */
 .logo-text {
   font-size: var(--text-xl);
   font-weight: 700;
@@ -296,57 +394,28 @@ ul, ol {
 
 .logo-text.neon-text .logo-filament {
   color: #00f5ff;
-  text-shadow:
-    0 0 5px #00f5ff,
-    0 0 10px #00f5ff,
-    0 0 20px #00f5ff,
-    0 0 40px #00f5ff;
-  animation: neon-pulse-cyan 3s ease-in-out infinite alternate;
+  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff;
+  animation: neon-pulse-cyan 4s ease-in-out infinite alternate;
+  will-change: text-shadow;
 }
 
 .logo-text.neon-text .logo-compare {
   color: #ff00ff;
-  text-shadow:
-    0 0 5px #ff00ff,
-    0 0 10px #ff00ff,
-    0 0 20px #ff00ff,
-    0 0 40px #ff00ff;
-  animation: neon-pulse-magenta 3s ease-in-out infinite alternate;
-  animation-delay: 0.5s;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  animation: neon-pulse-magenta 4s ease-in-out infinite alternate;
+  animation-delay: 1s;
+  will-change: text-shadow;
 }
 
+/* Simplified keyframes - fewer shadow layers */
 @keyframes neon-pulse-cyan {
-  from {
-    text-shadow:
-      0 0 5px #00f5ff,
-      0 0 10px #00f5ff,
-      0 0 20px #00f5ff,
-      0 0 40px #00f5ff;
-  }
-  to {
-    text-shadow:
-      0 0 2px #00f5ff,
-      0 0 5px #00f5ff,
-      0 0 10px #00f5ff,
-      0 0 20px #00f5ff;
-  }
+  from { text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff; }
+  to { text-shadow: 0 0 5px #00f5ff, 0 0 10px #00f5ff; }
 }
 
 @keyframes neon-pulse-magenta {
-  from {
-    text-shadow:
-      0 0 5px #ff00ff,
-      0 0 10px #ff00ff,
-      0 0 20px #ff00ff,
-      0 0 40px #ff00ff;
-  }
-  to {
-    text-shadow:
-      0 0 2px #ff00ff,
-      0 0 5px #ff00ff,
-      0 0 10px #ff00ff,
-      0 0 20px #ff00ff;
-  }
+  from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+  to { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff; }
 }
 
 /* Neon Buttons */
@@ -354,20 +423,17 @@ ul, ol {
   color: #00f5ff !important;
   border: 1px solid rgba(0, 245, 255, 0.3);
   background: rgba(0, 245, 255, 0.05);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .neon-btn:hover {
   background: rgba(0, 245, 255, 0.15) !important;
   border-color: #00f5ff;
-  box-shadow:
-    0 0 10px rgba(0, 245, 255, 0.3),
-    0 0 20px rgba(0, 245, 255, 0.2),
-    inset 0 0 10px rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
 }
 
 .neon-btn svg {
-  filter: drop-shadow(0 0 3px currentColor);
+  filter: drop-shadow(0 0 2px currentColor);
 }
 
 .header-actions {
@@ -383,6 +449,16 @@ ul, ol {
 
 [data-theme="light"] .neon-header .neon-btn {
   color: #00f5ff !important;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .filament-path,
+  .spool-ring,
+  .logo-text.neon-text .logo-filament,
+  .logo-text.neon-text .logo-compare {
+    animation: none !important;
+  }
 }
 
 /* Mobile responsive header */
@@ -516,35 +592,25 @@ ul, ol {
   padding: var(--space-8) var(--space-6) var(--space-12);
   position: relative;
   overflow: hidden;
+  contain: layout style;
 }
 
 [data-theme="light"] .hero.neon-hero {
   background: linear-gradient(180deg, #0d0d20 0%, #0a0a1a 30%, #1a1a2e 60%, var(--color-bg-secondary) 100%);
 }
 
-/* Glow effect behind content */
+/* Glow effect behind content - optimized: static glow, no animation */
 .hero-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 300px;
-  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.15) 0%, rgba(255, 0, 255, 0.1) 40%, transparent 70%);
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.12) 0%, rgba(255, 0, 255, 0.08) 40%, transparent 70%);
   pointer-events: none;
-  filter: blur(40px);
-  animation: hero-glow-pulse 5s ease-in-out infinite alternate;
-}
-
-@keyframes hero-glow-pulse {
-  from {
-    opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
+  opacity: 0.8;
+  /* Removed blur filter and animation for performance */
 }
 
 .neon-hero .hero-content {
@@ -565,7 +631,7 @@ ul, ol {
   font-size: var(--text-2xl);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
 .hero-title .title-highlight {
@@ -576,17 +642,14 @@ ul, ol {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift 4s ease infinite;
-  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+  animation: gradient-shift 6s ease infinite;
+  will-change: background-position;
+  /* Removed drop-shadow filter for performance */
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 .neon-hero .hero-subtitle {
@@ -597,7 +660,7 @@ ul, ol {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Filament Color Dots */
+/* Filament Color Dots - optimized */
 .hero-filament-colors {
   display: flex;
   justify-content: center;
@@ -610,35 +673,17 @@ ul, ol {
   height: 12px;
   border-radius: 50%;
   background: var(--dot-color);
-  box-shadow:
-    0 0 5px var(--dot-color),
-    0 0 10px var(--dot-color),
-    0 0 20px var(--dot-color);
-  animation: dot-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--dot-color);
   cursor: pointer;
   transition: transform 0.2s ease;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-.color-dot:nth-child(1) { animation-delay: 0s; }
-.color-dot:nth-child(2) { animation-delay: 0.2s; }
-.color-dot:nth-child(3) { animation-delay: 0.4s; }
-.color-dot:nth-child(4) { animation-delay: 0.6s; }
-.color-dot:nth-child(5) { animation-delay: 0.8s; }
-.color-dot:nth-child(6) { animation-delay: 1s; }
-
-@keyframes dot-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-}
-
+/* Static glow, no animation for performance */
 .color-dot:hover {
-  transform: scale(1.5);
+  transform: scale(1.4) translateZ(0);
+  box-shadow: 0 0 12px var(--dot-color);
 }
 
 /* Default hero title (non-neon) */
