@@ -89,7 +89,7 @@ const ChartModule = {
             display: !mini,
             color: textColor,
             font: {
-              size: mini ? 8 : 11,
+              size: 11,
               family: "'Inter', sans-serif",
               weight: '500'
             }

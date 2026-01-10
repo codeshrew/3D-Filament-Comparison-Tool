@@ -10,10 +10,10 @@ const App = {
     filteredFilaments: [],
     selectedForComparison: [],
     activeFilters: {
-      categories: ['standard', 'engineering', 'flexible', 'composite', 'support', 'specialty'],
+      categories: ['standard', 'engineering', 'flexible', 'composite', 'support', 'specialty', 'high-performance'],
       difficulty: 'all',
-      tempMin: 180,
-      tempMax: 310,
+      tempMin: 170,
+      tempMax: 420,
       requirements: [],
       minStrength: 1,
       minHeat: 1,
@@ -725,6 +725,19 @@ const App = {
         <h4 class="detail-section-title">Common Use Cases</h4>
         <div class="use-cases">${useCasesHtml}</div>
       </div>
+
+      ${filament.sources && filament.sources.length > 0 ? `
+        <div class="detail-section sources-section">
+          <h4 class="detail-section-title">Data Sources</h4>
+          <div class="sources-list">
+            ${filament.sources.map(sourceKey => {
+              const source = DATA_SOURCES[sourceKey];
+              return source ? `<a href="${source.url}" target="_blank" rel="noopener noreferrer" class="source-link">${source.shortName}</a>` : '';
+            }).filter(Boolean).join('')}
+          </div>
+          <p class="sources-note">Data cross-referenced from multiple authoritative sources for accuracy.</p>
+        </div>
+      ` : ''}
     `;
   },
 
@@ -877,7 +890,7 @@ const App = {
   resetFilters() {
     // Reset categories
     document.querySelectorAll('input[name="category"]').forEach(cb => cb.checked = true);
-    this.state.activeFilters.categories = ['standard', 'engineering', 'flexible', 'composite', 'support', 'specialty'];
+    this.state.activeFilters.categories = ['standard', 'engineering', 'flexible', 'composite', 'support', 'specialty', 'high-performance'];
 
     // Reset difficulty
     document.querySelectorAll('.filter-btn[data-difficulty]').forEach(btn => {
@@ -887,13 +900,13 @@ const App = {
 
     // Reset temperature
     if (this.elements.tempMinInput) {
-      this.elements.tempMinInput.value = 180;
-      this.elements.tempMaxInput.value = 310;
-      this.elements.tempMinValue.textContent = '180°C';
-      this.elements.tempMaxValue.textContent = '310°C';
+      this.elements.tempMinInput.value = 170;
+      this.elements.tempMaxInput.value = 420;
+      this.elements.tempMinValue.textContent = '170°C';
+      this.elements.tempMaxValue.textContent = '420°C';
     }
-    this.state.activeFilters.tempMin = 180;
-    this.state.activeFilters.tempMax = 310;
+    this.state.activeFilters.tempMin = 170;
+    this.state.activeFilters.tempMax = 420;
 
     // Reset requirements
     document.querySelectorAll('input[name="requirement"]').forEach(cb => cb.checked = false);
