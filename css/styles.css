@@ -347,25 +347,42 @@ ul, ol {
   transform: translateZ(0);
 }
 
-/* Spool rings with CSS animations - NO filters for smooth animation */
-.spool-ring {
-  transform-origin: center;
+/* Spool wrap animations - segmented colors rotating */
+.spool-wraps {
+  transform-origin: 25px 25px;
 }
 
-.spool-ring.spool-outer {
-  animation: spool-rotate 20s linear infinite;
+.spool-wrap {
+  transform-origin: 25px 25px;
 }
 
-.spool-ring.spool-middle {
-  animation: spool-rotate-reverse 15s linear infinite;
+.spool-wrap.wrap-cyan {
+  animation: spool-wrap-rotate 8s linear infinite;
 }
 
-@keyframes spool-rotate {
+.spool-wrap.wrap-magenta {
+  transform: rotate(120deg);
+  animation: spool-wrap-rotate-120 8s linear infinite;
+}
+
+.spool-wrap.wrap-green {
+  transform: rotate(240deg);
+  animation: spool-wrap-rotate-240 8s linear infinite;
+}
+
+@keyframes spool-wrap-rotate {
+  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-@keyframes spool-rotate-reverse {
-  to { transform: rotate(-360deg); }
+@keyframes spool-wrap-rotate-120 {
+  from { transform: rotate(120deg); }
+  to { transform: rotate(480deg); }
+}
+
+@keyframes spool-wrap-rotate-240 {
+  from { transform: rotate(240deg); }
+  to { transform: rotate(600deg); }
 }
 
 /* Neon Logo Text - simplified shadows */
