@@ -353,20 +353,11 @@ ul, ol {
 }
 
 .spool-ring.spool-outer {
-  stroke: #00f5ff;
-  stroke-width: 2.5;
   animation: spool-rotate 20s linear infinite;
 }
 
 .spool-ring.spool-middle {
-  stroke: #ff00ff;
-  stroke-width: 2;
   animation: spool-rotate-reverse 15s linear infinite;
-}
-
-.spool-hub {
-  stroke: #00f5ff;
-  stroke-width: 2.5;
 }
 
 @keyframes spool-rotate {
