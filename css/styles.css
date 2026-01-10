@@ -226,64 +226,69 @@ ul, ol {
   transform: translateZ(0);
 }
 
-/* Filament path styles - CSS glow instead of SVG filters */
+/* Filament path styles - NO filters on animated elements for smooth 60fps */
 .filament-path {
-  opacity: 0.85;
-  will-change: opacity, transform;
-  transform: translateZ(0);
+  opacity: 0.9;
+  stroke-linecap: round;
 }
 
+/* Thicker strokes create natural glow appearance without filters */
 .filament-path.strand-cyan {
-  filter: drop-shadow(0 0 4px #00f5ff);
-  animation: strand-float-1 12s ease-in-out infinite;
+  stroke: #00f5ff;
+  stroke-width: 3;
+  animation: strand-float-1 20s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .filament-path.strand-magenta {
-  filter: drop-shadow(0 0 4px #ff00ff);
-  animation: strand-float-2 14s ease-in-out infinite;
+  stroke: #ff00ff;
+  stroke-width: 2.5;
+  animation: strand-float-2 24s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .filament-path.strand-green {
-  filter: drop-shadow(0 0 3px #00ff88);
-  animation: strand-float-3 16s ease-in-out infinite;
+  stroke: #00ff88;
+  stroke-width: 2.5;
+  animation: strand-float-3 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .filament-path.strand-orange {
-  filter: drop-shadow(0 0 3px #ff6600);
-  animation: strand-float-4 13s ease-in-out infinite;
-  opacity: 0.7;
+  stroke: #ff6600;
+  stroke-width: 2;
+  opacity: 0.8;
+  animation: strand-float-4 26s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .filament-path.strand-purple {
-  filter: drop-shadow(0 0 2px #aa55ff);
-  animation: strand-float-5 15s ease-in-out infinite;
-  opacity: 0.65;
+  stroke: #aa55ff;
+  stroke-width: 2;
+  opacity: 0.75;
+  animation: strand-float-5 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
-/* GPU-accelerated transform animations instead of path morphing */
+/* Pure transform animations - compositor only, no paint */
 @keyframes strand-float-1 {
-  0%, 100% { transform: translateY(0) translateZ(0); }
-  50% { transform: translateY(-8px) translateZ(0); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
 }
 
 @keyframes strand-float-2 {
-  0%, 100% { transform: translateY(0) translateZ(0); }
-  50% { transform: translateY(10px) translateZ(0); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 12px, 0); }
 }
 
 @keyframes strand-float-3 {
-  0%, 100% { transform: translateY(0) translateZ(0); }
-  50% { transform: translateY(-6px) translateZ(0); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
 }
 
 @keyframes strand-float-4 {
-  0%, 100% { transform: translateY(0) translateZ(0); }
-  50% { transform: translateY(7px) translateZ(0); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 9px, 0); }
 }
 
 @keyframes strand-float-5 {
-  0%, 100% { transform: translateY(0) translateZ(0); }
-  50% { transform: translateY(-5px) translateZ(0); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -7px, 0); }
 }
 
 /* Tron Grid Overlay - static, no animation */
@@ -342,37 +347,34 @@ ul, ol {
   transform: translateZ(0);
 }
 
-/* Spool rings with CSS animations */
+/* Spool rings with CSS animations - NO filters for smooth animation */
 .spool-ring {
-  stroke: url(#spool-gradient);
   transform-origin: center;
-  will-change: transform;
 }
 
 .spool-ring.spool-outer {
   stroke: #00f5ff;
-  filter: drop-shadow(0 0 4px #00f5ff);
-  animation: spool-rotate 30s linear infinite;
+  stroke-width: 2.5;
+  animation: spool-rotate 40s linear infinite;
 }
 
 .spool-ring.spool-middle {
   stroke: #ff00ff;
-  filter: drop-shadow(0 0 3px #ff00ff);
-  animation: spool-rotate-reverse 25s linear infinite;
+  stroke-width: 2;
+  animation: spool-rotate-reverse 35s linear infinite;
 }
 
 .spool-hub {
-  filter: drop-shadow(0 0 3px #00f5ff);
+  stroke: #00f5ff;
+  stroke-width: 2.5;
 }
 
 @keyframes spool-rotate {
-  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 @keyframes spool-rotate-reverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
 
 /* Neon Logo Text - simplified shadows */
