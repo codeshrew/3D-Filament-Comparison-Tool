@@ -1253,6 +1253,7 @@ ul, ol {
 .filament-section {
   flex: 1;
   padding: var(--space-6);
+  padding-bottom: calc(var(--comparison-height) + var(--space-6));
 }
 
 .filament-grid {
