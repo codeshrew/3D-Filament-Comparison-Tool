@@ -25,22 +25,189 @@
   <title>3D Filament Comparison Tool</title>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
+  <!-- Header with Neon Filament Design -->
+  <header class="site-header neon-header">
+    <!-- Animated Filament Background -->
+    <div class="filament-bg">
+      <svg class="filament-strands" viewBox="0 0 1400 180" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <!-- Glow filters for each color -->
+          <filter id="glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glow-magenta" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glow-orange" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <!-- Animated gradient for flowing effect -->
+          <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0)"/>
+            <stop offset="50%" style="stop-color:rgba(255,255,255,0.8)"/>
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+            <animate attributeName="x1" from="-100%" to="100%" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="x2" from="0%" to="200%" dur="3s" repeatCount="indefinite"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Filament Strands - Cyan (PLA-like) -->
+        <g class="strand strand-cyan" filter="url(#glow-cyan)">
+          <path class="filament-path" d="M-50,140 Q200,180 400,120 T800,100 T1200,140 T1450,90"
+                stroke="#00f5ff" stroke-width="2.5" fill="none" opacity="0.9">
+            <animate attributeName="d"
+                     values="M-50,140 Q200,180 400,120 T800,100 T1200,140 T1450,90;
+                             M-50,130 Q200,90 400,150 T800,110 T1200,80 T1450,120;
+                             M-50,140 Q200,180 400,120 T800,100 T1200,140 T1450,90"
+                     dur="8s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Filament Strands - Magenta (Silk PLA-like) -->
+        <g class="strand strand-magenta" filter="url(#glow-magenta)">
+          <path class="filament-path" d="M-50,60 Q300,20 500,80 T900,50 T1300,90 T1450,40"
+                stroke="#ff00ff" stroke-width="2" fill="none" opacity="0.85">
+            <animate attributeName="d"
+                     values="M-50,60 Q300,20 500,80 T900,50 T1300,90 T1450,40;
+                             M-50,80 Q300,100 500,40 T900,90 T1300,30 T1450,70;
+                             M-50,60 Q300,20 500,80 T900,50 T1300,90 T1450,40"
+                     dur="10s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Filament Strands - Green (PETG-like) -->
+        <g class="strand strand-green" filter="url(#glow-green)">
+          <path class="filament-path" d="M-50,100 Q150,60 350,110 T750,70 T1100,120 T1450,80"
+                stroke="#00ff88" stroke-width="2" fill="none" opacity="0.8">
+            <animate attributeName="d"
+                     values="M-50,100 Q150,60 350,110 T750,70 T1100,120 T1450,80;
+                             M-50,90 Q150,130 350,70 T750,130 T1100,60 T1450,100;
+                             M-50,100 Q150,60 350,110 T750,70 T1100,120 T1450,80"
+                     dur="12s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Filament Strands - Orange (ABS-like) -->
+        <g class="strand strand-orange" filter="url(#glow-orange)">
+          <path class="filament-path" d="M-50,30 Q250,70 450,20 T850,60 T1250,30 T1450,50"
+                stroke="#ff6600" stroke-width="1.8" fill="none" opacity="0.75">
+            <animate attributeName="d"
+                     values="M-50,30 Q250,70 450,20 T850,60 T1250,30 T1450,50;
+                             M-50,50 Q250,10 450,60 T850,20 T1250,70 T1450,30;
+                             M-50,30 Q250,70 450,20 T850,60 T1250,30 T1450,50"
+                     dur="9s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Filament Strands - Purple (TPU-like) -->
+        <g class="strand strand-purple" filter="url(#glow-purple)">
+          <path class="filament-path" d="M-50,160 Q350,130 550,170 T950,140 T1350,160 T1450,130"
+                stroke="#aa55ff" stroke-width="1.5" fill="none" opacity="0.7">
+            <animate attributeName="d"
+                     values="M-50,160 Q350,130 550,170 T950,140 T1350,160 T1450,130;
+                             M-50,150 Q350,175 550,130 T950,170 T1350,140 T1450,160;
+                             M-50,160 Q350,130 550,170 T950,140 T1350,160 T1450,130"
+                     dur="11s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Spool silhouettes on edges -->
+        <g class="spool spool-left" opacity="0.3">
+          <circle cx="60" cy="90" r="45" fill="none" stroke="#00f5ff" stroke-width="1"/>
+          <circle cx="60" cy="90" r="25" fill="none" stroke="#00f5ff" stroke-width="1"/>
+          <circle cx="60" cy="90" r="12" fill="none" stroke="#00f5ff" stroke-width="2"/>
+        </g>
+        <g class="spool spool-right" opacity="0.3">
+          <circle cx="1340" cy="90" r="45" fill="none" stroke="#ff00ff" stroke-width="1"/>
+          <circle cx="1340" cy="90" r="25" fill="none" stroke="#ff00ff" stroke-width="1"/>
+          <circle cx="1340" cy="90" r="12" fill="none" stroke="#ff00ff" stroke-width="2"/>
+        </g>
+      </svg>
+
+      <!-- Grid overlay for Tron effect -->
+      <div class="tron-grid"></div>
+    </div>
+
     <div class="header-content">
       <div class="logo">
-        <span class="logo-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            <path d="M2 12h20"></path>
+        <span class="logo-icon neon-spool">
+          <!-- Animated Spool Icon -->
+          <svg width="40" height="40" viewBox="0 0 50 50" class="spool-icon">
+            <defs>
+              <linearGradient id="spool-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00f5ff"/>
+                <stop offset="50%" style="stop-color:#ff00ff"/>
+                <stop offset="100%" style="stop-color:#00ff88"/>
+              </linearGradient>
+              <filter id="spool-glow">
+                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Outer ring -->
+            <circle cx="25" cy="25" r="22" fill="none" stroke="url(#spool-gradient)" stroke-width="2" filter="url(#spool-glow)">
+              <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="20s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Middle ring -->
+            <circle cx="25" cy="25" r="14" fill="none" stroke="url(#spool-gradient)" stroke-width="1.5" filter="url(#spool-glow)">
+              <animateTransform attributeName="transform" type="rotate" from="360 25 25" to="0 25 25" dur="15s" repeatCount="indefinite"/>
+            </circle>
+            <!-- Inner ring / hub -->
+            <circle cx="25" cy="25" r="6" fill="none" stroke="#00f5ff" stroke-width="2" filter="url(#spool-glow)"/>
+            <!-- Filament wraps -->
+            <path d="M25,3 A22,22 0 0,1 47,25" fill="none" stroke="#00f5ff" stroke-width="3" stroke-linecap="round" filter="url(#spool-glow)" opacity="0.8">
+              <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M25,3 A22,22 0 0,1 47,25" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round" filter="url(#spool-glow)" opacity="0.8">
+              <animateTransform attributeName="transform" type="rotate" from="120 25 25" to="480 25 25" dur="8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M25,3 A22,22 0 0,1 47,25" fill="none" stroke="#00ff88" stroke-width="3" stroke-linecap="round" filter="url(#spool-glow)" opacity="0.8">
+              <animateTransform attributeName="transform" type="rotate" from="240 25 25" to="600 25 25" dur="8s" repeatCount="indefinite"/>
+            </path>
           </svg>
         </span>
-        <h1 class="logo-text">Filament<span>Compare</span></h1>
+        <h1 class="logo-text neon-text">
+          <span class="logo-filament">Filament</span><span class="logo-compare">Compare</span>
+        </h1>
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle dark mode">
+        <button class="btn btn-icon neon-btn" id="theme-toggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -56,7 +223,7 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
-        <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-icon" aria-label="View on GitHub">
+        <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-icon neon-btn" aria-label="View on GitHub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
@@ -67,11 +234,23 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Hero Section with Neon Theme -->
+    <section class="hero neon-hero">
+      <div class="hero-glow"></div>
       <div class="hero-content">
-        <h2 class="hero-title">Find the Perfect Filament</h2>
+        <h2 class="hero-title neon-title">
+          <span class="title-line">Find the</span>
+          <span class="title-highlight">Perfect Filament</span>
+        </h2>
         <p class="hero-subtitle">Compare properties, print settings, and use cases for 12+ filament types</p>
+        <div class="hero-filament-colors">
+          <span class="color-dot" style="--dot-color: #00f5ff" title="PLA"></span>
+          <span class="color-dot" style="--dot-color: #00ff88" title="PETG"></span>
+          <span class="color-dot" style="--dot-color: #ff6600" title="ABS"></span>
+          <span class="color-dot" style="--dot-color: #aa55ff" title="TPU"></span>
+          <span class="color-dot" style="--dot-color: #ff00ff" title="Silk"></span>
+          <span class="color-dot" style="--dot-color: #ffff00" title="Nylon"></span>
+        </div>
       </div>
     </section>
 
