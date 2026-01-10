@@ -185,7 +185,7 @@ ul, ol {
 }
 
 /* ============================================
-   Header
+   Header - Neon Filament Theme (Performance Optimized)
    ============================================ */
 
 .site-header {
@@ -195,6 +195,124 @@ ul, ol {
   background: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border);
   height: var(--header-height);
+}
+
+/* Neon Header Styles */
+.site-header.neon-header {
+  background: linear-gradient(180deg, #0a0a1a 0%, #0d0d20 100%);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  contain: layout style paint;
+}
+
+/* Filament Background Container */
+.filament-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.filament-strands {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Filament path styles - NO filters on animated elements for smooth 60fps */
+.filament-path {
+  opacity: 0.9;
+  stroke-linecap: round;
+}
+
+/* Thicker strokes create natural glow appearance without filters */
+.filament-path.strand-cyan {
+  stroke: #00f5ff;
+  stroke-width: 3;
+  animation: strand-float-1 6s ease-in-out infinite;
+}
+
+.filament-path.strand-magenta {
+  stroke: #ff00ff;
+  stroke-width: 2.5;
+  animation: strand-float-2 7s ease-in-out infinite;
+}
+
+.filament-path.strand-green {
+  stroke: #00ff88;
+  stroke-width: 2.5;
+  animation: strand-float-3 8s ease-in-out infinite;
+}
+
+.filament-path.strand-orange {
+  stroke: #ff6600;
+  stroke-width: 2;
+  opacity: 0.8;
+  animation: strand-float-4 9s ease-in-out infinite;
+}
+
+.filament-path.strand-purple {
+  stroke: #aa55ff;
+  stroke-width: 2;
+  opacity: 0.75;
+  animation: strand-float-5 10s ease-in-out infinite;
+}
+
+/* Pure transform animations - compositor only, no paint */
+@keyframes strand-float-1 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -20px, 0); }
+}
+
+@keyframes strand-float-2 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 25px, 0); }
+}
+
+@keyframes strand-float-3 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -18px, 0); }
+}
+
+@keyframes strand-float-4 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 22px, 0); }
+}
+
+@keyframes strand-float-5 {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -15px, 0); }
+}
+
+/* Tron Grid Overlay - static, no animation */
+.tron-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+/* Header content positioning */
+.neon-header .header-content {
+  position: relative;
+  z-index: 10;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-content {
@@ -217,6 +335,57 @@ ul, ol {
   color: var(--color-primary);
 }
 
+/* Neon Spool Icon - Optimized */
+.logo-icon.neon-spool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spool-icon {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Spool wrap animations - segmented colors rotating */
+.spool-wraps {
+  transform-origin: 25px 25px;
+}
+
+.spool-wrap {
+  transform-origin: 25px 25px;
+}
+
+.spool-wrap.wrap-cyan {
+  animation: spool-wrap-rotate 8s linear infinite;
+}
+
+.spool-wrap.wrap-magenta {
+  transform: rotate(120deg);
+  animation: spool-wrap-rotate-120 8s linear infinite;
+}
+
+.spool-wrap.wrap-green {
+  transform: rotate(240deg);
+  animation: spool-wrap-rotate-240 8s linear infinite;
+}
+
+@keyframes spool-wrap-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spool-wrap-rotate-120 {
+  from { transform: rotate(120deg); }
+  to { transform: rotate(480deg); }
+}
+
+@keyframes spool-wrap-rotate-240 {
+  from { transform: rotate(240deg); }
+  to { transform: rotate(600deg); }
+}
+
+/* Neon Logo Text - simplified shadows */
 .logo-text {
   font-size: var(--text-xl);
   font-weight: 700;
@@ -227,10 +396,114 @@ ul, ol {
   color: var(--color-primary);
 }
 
+.logo-text.neon-text {
+  font-size: var(--text-2xl);
+  display: flex;
+  gap: 0;
+}
+
+.logo-text.neon-text .logo-filament {
+  color: #00f5ff;
+  text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff;
+  animation: neon-pulse-cyan 4s ease-in-out infinite alternate;
+  will-change: text-shadow;
+}
+
+.logo-text.neon-text .logo-compare {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  animation: neon-pulse-magenta 4s ease-in-out infinite alternate;
+  animation-delay: 1s;
+  will-change: text-shadow;
+}
+
+/* Simplified keyframes - fewer shadow layers */
+@keyframes neon-pulse-cyan {
+  from { text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff; }
+  to { text-shadow: 0 0 5px #00f5ff, 0 0 10px #00f5ff; }
+}
+
+@keyframes neon-pulse-magenta {
+  from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+  to { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff; }
+}
+
+/* Neon Buttons */
+.neon-btn {
+  color: #00f5ff !important;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  background: rgba(0, 245, 255, 0.05);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.neon-btn:hover {
+  background: rgba(0, 245, 255, 0.15) !important;
+  border-color: #00f5ff;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+.neon-btn svg {
+  filter: drop-shadow(0 0 2px currentColor);
+}
+
 .header-actions {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+/* Light theme adjustments for neon header */
+[data-theme="light"] .neon-header {
+  background: linear-gradient(180deg, #0a0a1a 0%, #0d0d20 100%);
+}
+
+[data-theme="light"] .neon-header .neon-btn {
+  color: #00f5ff !important;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .filament-path,
+  .spool-ring,
+  .logo-text.neon-text .logo-filament,
+  .logo-text.neon-text .logo-compare {
+    animation: none !important;
+  }
+}
+
+/* Mobile responsive header */
+@media (max-width: 768px) {
+  .site-header.neon-header {
+    height: 140px;
+  }
+
+  .logo-text.neon-text {
+    font-size: var(--text-lg);
+  }
+
+  .spool-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .spool.spool-left,
+  .spool.spool-right {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header.neon-header {
+    height: 120px;
+  }
+
+  .logo-text.neon-text {
+    font-size: var(--text-base);
+  }
+
+  .neon-header .header-content {
+    padding: var(--space-3);
+  }
 }
 
 /* ============================================
@@ -310,7 +583,7 @@ ul, ol {
 }
 
 /* ============================================
-   Hero Section
+   Hero Section - Neon Theme
    ============================================ */
 
 .hero {
@@ -323,6 +596,107 @@ ul, ol {
   background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-tertiary) 100%);
 }
 
+/* Neon Hero Styles */
+.hero.neon-hero {
+  background: linear-gradient(180deg, #0d0d20 0%, #0a0a1a 50%, var(--color-bg-primary) 100%);
+  padding: var(--space-8) var(--space-6) var(--space-12);
+  position: relative;
+  overflow: hidden;
+  contain: layout style;
+}
+
+[data-theme="light"] .hero.neon-hero {
+  background: linear-gradient(180deg, #0d0d20 0%, #0a0a1a 30%, #1a1a2e 60%, var(--color-bg-secondary) 100%);
+}
+
+/* Glow effect behind content - optimized: static glow, no animation */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.12) 0%, rgba(255, 0, 255, 0.08) 40%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.8;
+  /* Removed blur filter and animation for performance */
+}
+
+.neon-hero .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Neon Title */
+.hero-title.neon-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.hero-title .title-line {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.hero-title .title-highlight {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  background: linear-gradient(90deg, #00f5ff, #ff00ff, #00ff88);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
+  will-change: background-position;
+  /* Removed drop-shadow filter for performance */
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+.neon-hero .hero-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--text-lg);
+  max-width: 500px;
+  margin: 0 auto var(--space-6);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Filament Color Dots - optimized */
+.hero-filament-colors {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dot-color);
+  box-shadow: 0 0 8px var(--dot-color);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Static glow, no animation for performance */
+.color-dot:hover {
+  transform: scale(1.4) translateZ(0);
+  box-shadow: 0 0 12px var(--dot-color);
+}
+
+/* Default hero title (non-neon) */
 .hero-title {
   font-size: var(--text-3xl);
   font-weight: 700;
@@ -348,6 +722,32 @@ ul, ol {
 
   .hero-subtitle {
     font-size: var(--text-base);
+  }
+
+  .hero.neon-hero {
+    padding: var(--space-6) var(--space-4) var(--space-10);
+  }
+
+  .hero-title .title-line {
+    font-size: var(--text-lg);
+  }
+
+  .hero-title .title-highlight {
+    font-size: var(--text-2xl);
+  }
+
+  .hero-glow {
+    width: 300px;
+    height: 150px;
+  }
+
+  .hero-filament-colors {
+    gap: var(--space-2);
+  }
+
+  .color-dot {
+    width: 10px;
+    height: 10px;
   }
 }
 
@@ -853,6 +1253,7 @@ ul, ol {
 .filament-section {
   flex: 1;
   padding: var(--space-6);
+  padding-bottom: calc(var(--comparison-height) + var(--space-6));
 }
 
 .filament-grid {
@@ -874,6 +1275,10 @@ ul, ol {
   padding: var(--space-16) var(--space-6);
   text-align: center;
   color: var(--color-text-muted);
+}
+
+.empty-state[hidden] {
+  display: none;
 }
 
 .empty-state svg {
