@@ -1276,6 +1276,10 @@ ul, ol {
   color: var(--color-text-muted);
 }
 
+.empty-state[hidden] {
+  display: none;
+}
+
 .empty-state svg {
   margin-bottom: var(--space-4);
   opacity: 0.5;
