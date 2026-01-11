@@ -207,14 +207,14 @@ ul, ol {
   contain: style;
 }
 
-/* Filament Background Container - extends past header to cover wave area */
-/* Extends to match wave bottom (60px past header) so animated lines reach wave troughs */
+/* Filament Background Container - extends past header into hero wave area */
+/* With header overflow:visible, animated lines flow into hero where wave sits */
 .filament-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: -60px;
+  bottom: -80px; /* Extend 80px past header to reach wave in hero */
   overflow: hidden;
   pointer-events: none;
 }
@@ -614,13 +614,11 @@ ul, ol {
   padding-top: var(--space-16);
 }
 
-/* Wave divider container - positioned at bottom of header */
-/* Math: SVG is 80px tall, wave peaks at SVG y=20. To align peaks with header bottom:
-   container_top = header_bottom - 20 = 180 - 20 = 160px
-   container_bottom = 160 + 80 = 240px, so bottom offset = 240 - 180 = 60px */
-.header-wave-divider {
+/* Wave divider container - positioned at top of hero section */
+/* Wave is outside header so no overlap issues; header overflow:visible lets filaments flow through */
+.hero-wave-divider {
   position: absolute;
-  bottom: -60px;
+  top: 0;
   left: 0;
   right: 0;
   width: 100%;
@@ -629,29 +627,11 @@ ul, ol {
   z-index: 5;
 }
 
-/* Pseudo-element to fill the gap above wave lines with header background */
-/* The top 20px of the 80px SVG (25%) is above the wave peaks and needs fill */
-.header-wave-divider::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 20px; /* Matches SVG y=20 where wave peaks are */
-  background: #0d0d20; /* Header gradient end color */
-  z-index: -1; /* Behind the SVG wave lines */
-}
-
-.header-wave-divider svg {
+.hero-wave-divider svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
   height: 80px;
-}
-
-/* Wave styling - transparent to show animated lines through */
-.wave-shape {
-  fill: none;
 }
 
 .wave-glow-1 {
@@ -676,11 +656,6 @@ ul, ol {
   stroke-width: 1;
   opacity: 0.4;
   filter: drop-shadow(0 0 3px #00ff88);
-}
-
-/* Dark mode wave - transparent to show animated lines */
-[data-theme="dark"] .wave-shape {
-  fill: none;
 }
 
 /* Dark mode hero - slightly lighter/purple-shifted for subtle contrast */
@@ -721,11 +696,7 @@ ul, ol {
 
 /* Responsive wave adjustments */
 @media (max-width: 768px) {
-  .header-wave-divider {
-    bottom: -30px;
-  }
-
-  .header-wave-divider svg {
+  .hero-wave-divider svg {
     height: 60px;
   }
 
@@ -735,11 +706,7 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
-  .header-wave-divider {
-    bottom: -20px;
-  }
-
-  .header-wave-divider svg {
+  .hero-wave-divider svg {
     height: 40px;
   }
 
