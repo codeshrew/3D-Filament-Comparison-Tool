@@ -13,7 +13,9 @@
  */
 
 // Data source references for citations
+// Material-specific pages provide more authoritative information
 const DATA_SOURCES = {
+  // General guides
   prusa: {
     name: "Prusa Knowledge Base",
     url: "https://help.prusa3d.com/filament-material-guide",
@@ -53,6 +55,124 @@ const DATA_SOURCES = {
     name: "All3DP",
     url: "https://all3dp.com/1/3d-printer-filament-types-3d-printing-3d-filament/",
     shortName: "All3DP"
+  },
+  // Material-specific Prusa pages
+  "prusa-pla": {
+    name: "Prusa PLA Guide",
+    url: "https://help.prusa3d.com/article/pla_2062",
+    shortName: "Prusa PLA"
+  },
+  "prusa-petg": {
+    name: "Prusa PETG Guide",
+    url: "https://help.prusa3d.com/article/petg_2059",
+    shortName: "Prusa PETG"
+  },
+  "prusa-abs": {
+    name: "Prusa ABS Guide",
+    url: "https://help.prusa3d.com/article/abs_2058",
+    shortName: "Prusa ABS"
+  },
+  "prusa-asa": {
+    name: "Prusa ASA Guide",
+    url: "https://help.prusa3d.com/article/asa_1809",
+    shortName: "Prusa ASA"
+  },
+  "prusa-tpu": {
+    name: "Prusa Flexible Materials Guide",
+    url: "https://help.prusa3d.com/article/flexible-materials_2057",
+    shortName: "Prusa TPU"
+  },
+  "prusa-nylon": {
+    name: "Prusa Nylon Guide",
+    url: "https://help.prusa3d.com/article/polyamide-nylon_167188",
+    shortName: "Prusa Nylon"
+  },
+  "prusa-pc": {
+    name: "Prusa Polycarbonate Guide",
+    url: "https://help.prusa3d.com/article/polycarbonate-pc_165812",
+    shortName: "Prusa PC"
+  },
+  "prusa-hips": {
+    name: "Prusa HIPS Guide",
+    url: "https://help.prusa3d.com/article/hips_167118",
+    shortName: "Prusa HIPS"
+  },
+  "prusa-pva": {
+    name: "Prusa PVA/BVOH Guide",
+    url: "https://help.prusa3d.com/article/water-soluble-bvoh-pva_167012",
+    shortName: "Prusa PVA"
+  },
+  "prusa-pvb": {
+    name: "Prusa PVB Guide",
+    url: "https://help.prusa3d.com/article/pvb_196708",
+    shortName: "Prusa PVB"
+  },
+  "prusa-cpe": {
+    name: "Prusa CPE Guide",
+    url: "https://help.prusa3d.com/article/cpe_166877",
+    shortName: "Prusa CPE"
+  },
+  "prusa-pp": {
+    name: "Prusa Polypropylene Guide",
+    url: "https://help.prusa3d.com/article/polypropylene-pp_167126",
+    shortName: "Prusa PP"
+  },
+  "prusa-composites": {
+    name: "Prusa Composite Materials Guide",
+    url: "https://help.prusa3d.com/article/composite-materials-filled-with-carbon-kevlar-or-glass_167387",
+    shortName: "Prusa CF/GF"
+  },
+  "prusa-wood-metal": {
+    name: "Prusa Wood/Metal Fill Guide",
+    url: "https://help.prusa3d.com/article/composite-materials-with-metal-or-wood-particles_166863",
+    shortName: "Prusa Fill"
+  },
+  "prusa-peek": {
+    name: "Prusa PEEK Guide",
+    url: "https://help.prusa3d.com/article/peek-cf-polyetheretherketone_765123",
+    shortName: "Prusa PEEK"
+  },
+  "prusa-pei": {
+    name: "Prusa PEI/Ultem Guide",
+    url: "https://help.prusa3d.com/article/pei-ultem_725809",
+    shortName: "Prusa PEI"
+  },
+  // Ultimaker support materials
+  "ultimaker-breakaway": {
+    name: "Ultimaker Breakaway Guide",
+    url: "https://ultimaker.com/learn/which-3d-printing-supports-to-use-pla-pva-or-breakaway/",
+    shortName: "Ultimaker"
+  },
+  // Simplify3D material-specific pages
+  "simplify3d-abs": {
+    name: "Simplify3D ABS Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/abs/",
+    shortName: "Simplify3D"
+  },
+  "simplify3d-pla": {
+    name: "Simplify3D PLA Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/pla/",
+    shortName: "Simplify3D"
+  },
+  "simplify3d-petg": {
+    name: "Simplify3D PETG Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/petg/",
+    shortName: "Simplify3D"
+  },
+  "simplify3d-nylon": {
+    name: "Simplify3D Nylon Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/nylon/",
+    shortName: "Simplify3D"
+  },
+  "simplify3d-flexible": {
+    name: "Simplify3D Flexible Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/flexible/",
+    shortName: "Simplify3D"
+  },
+  "simplify3d-pc": {
+    name: "Simplify3D Polycarbonate Guide",
+    url: "https://www.simplify3d.com/resources/materials-guide/polycarbonate/",
+    shortName: "Simplify3D"
   }
 };
 
@@ -109,7 +229,7 @@ const FILAMENT_DATA = [
     useCases: ["Decorative items", "Prototypes", "Educational projects", "Cosplay props", "Figurines", "Gifts"],
     biodegradable: true,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "ultimaker", "xometry"]
+    sources: ["prusa-pla", "simplify3d-pla", "matterhackers"]
   },
   {
     id: "petg",
@@ -162,7 +282,7 @@ const FILAMENT_DATA = [
     useCases: ["Mechanical parts", "Protective cases", "Food containers", "Outdoor applications", "Water-resistant parts"],
     biodegradable: false,
     foodSafe: true,
-    sources: ["prusa", "matterhackers", "ultimaker", "xometry"]
+    sources: ["prusa-petg", "simplify3d-petg", "matterhackers"]
   },
   {
     id: "abs",
@@ -215,7 +335,7 @@ const FILAMENT_DATA = [
     useCases: ["Functional prototypes", "Automotive parts", "Electronic enclosures", "Mechanical components", "LEGO-style parts"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "xometry", "ultimaker"]
+    sources: ["prusa-abs", "simplify3d-abs", "matterhackers"]
   },
   {
     id: "tpu",
@@ -268,7 +388,7 @@ const FILAMENT_DATA = [
     useCases: ["Phone cases", "Shoe soles", "Gaskets and seals", "Vibration dampeners", "Wearables", "Watchbands"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "ultimaker"]
+    sources: ["prusa-tpu", "simplify3d-flexible", "matterhackers"]
   },
   {
     id: "nylon",
@@ -322,7 +442,7 @@ const FILAMENT_DATA = [
     useCases: ["Gears and bearings", "Hinges and snap-fits", "Tools and jigs", "Wear-resistant parts", "Functional prototypes"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "xometry", "ultimaker"]
+    sources: ["prusa-nylon", "simplify3d-nylon", "matterhackers"]
   },
   {
     id: "asa",
@@ -374,7 +494,7 @@ const FILAMENT_DATA = [
     useCases: ["Outdoor enclosures", "Automotive exterior parts", "Garden equipment", "Marine hardware", "Signage"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "ultimaker"]
+    sources: ["prusa-asa", "matterhackers", "ultimaker"]
   },
   {
     id: "pc",
@@ -429,7 +549,7 @@ const FILAMENT_DATA = [
     useCases: ["Safety equipment", "Automotive components", "Electronic enclosures", "High-temperature applications", "Structural parts"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "xometry", "ultimaker", "matterhackers"]
+    sources: ["prusa-pc", "simplify3d-pc", "matterhackers"]
   },
   {
     id: "hips",
@@ -482,7 +602,7 @@ const FILAMENT_DATA = [
     useCases: ["Support material for ABS", "Lightweight structural parts", "Packaging prototypes"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "xometry"]
+    sources: ["prusa-hips", "matterhackers", "simplify3d"]
   },
   {
     id: "pva",
@@ -535,7 +655,7 @@ const FILAMENT_DATA = [
     useCases: ["Support material for PLA", "Support material for TPU", "Complex geometries", "Multi-material prints"],
     biodegradable: true,
     foodSafe: false,
-    sources: ["prusa", "matterhackers", "ultimaker", "xometry"]
+    sources: ["prusa-pva", "matterhackers", "ultimaker"]
   },
   {
     id: "wood-pla",
@@ -587,7 +707,7 @@ const FILAMENT_DATA = [
     useCases: ["Decorative items", "Figurines", "Furniture accents", "Picture frames", "Cosplay props"],
     biodegradable: true,
     foodSafe: false,
-    sources: ["matterhackers", "prusa", "all3dp"]
+    sources: ["prusa-wood-metal", "matterhackers", "simplify3d"]
   },
   {
     id: "carbon-fiber-pla",
@@ -641,7 +761,7 @@ const FILAMENT_DATA = [
     useCases: ["Drone frames", "RC car parts", "Camera mounts", "Jigs and fixtures", "Lightweight structural parts"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "prusa", "xometry", "ultimaker"]
+    sources: ["prusa-composites", "matterhackers", "simplify3d"]
   },
   {
     id: "silk-pla",
@@ -854,7 +974,7 @@ const FILAMENT_DATA = [
     useCases: ["Chemical containers", "Laboratory equipment", "Medical devices", "Food-contact parts", "Automotive interiors"],
     biodegradable: false,
     foodSafe: true,
-    sources: ["prusa", "ultimaker"]
+    sources: ["prusa-cpe", "ultimaker", "matterhackers"]
   },
 
   // ============================================
@@ -917,7 +1037,7 @@ const FILAMENT_DATA = [
     useCases: ["Aerospace components", "Medical implants", "Oil & gas equipment", "Semiconductor handling", "High-performance bearings"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["3dxtech", "filamentive", "xometry"]
+    sources: ["prusa-peek", "3dxtech", "filamentive"]
   },
   {
     id: "pekk",
@@ -1033,7 +1153,7 @@ const FILAMENT_DATA = [
     useCases: ["Aerospace interiors", "Electrical insulators", "Medical sterilization trays", "Automotive sensor housings", "High-temp tooling"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["3dxtech", "filamentive", "ultimaker"]
+    sources: ["prusa-pei", "3dxtech", "filamentive"]
   },
   {
     id: "ppsu",
@@ -1319,7 +1439,7 @@ const FILAMENT_DATA = [
     useCases: ["Camera mounts", "Tool handles", "Structural brackets", "Electronics housings", "RC car parts"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "prusa", "3dxtech"]
+    sources: ["prusa-composites", "matterhackers", "3dxtech"]
   },
   {
     id: "cf-nylon",
@@ -1373,7 +1493,7 @@ const FILAMENT_DATA = [
     useCases: ["Drone frames", "End-effectors", "Functional prototypes", "Production parts", "Aerospace components"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "prusa", "3dxtech"]
+    sources: ["prusa-composites", "matterhackers", "3dxtech"]
   },
   {
     id: "gf-nylon",
@@ -1427,7 +1547,7 @@ const FILAMENT_DATA = [
     useCases: ["Impact-resistant housings", "Functional parts", "Tooling jigs", "Automotive components", "Industrial fixtures"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "prusa"]
+    sources: ["prusa-composites", "matterhackers"]
   },
   {
     id: "metal-filled",
@@ -1480,7 +1600,7 @@ const FILAMENT_DATA = [
     useCases: ["Jewelry", "Decorative sculptures", "Props and replicas", "Awards and trophies", "Artistic prints"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "all3dp"]
+    sources: ["prusa-wood-metal", "matterhackers", "simplify3d"]
   },
 
   // ============================================
@@ -1539,7 +1659,7 @@ const FILAMENT_DATA = [
     useCases: ["Living hinges", "Chemical containers", "Food packaging", "Medical containers", "Floating items"],
     biodegradable: false,
     foodSafe: true,
-    sources: ["matterhackers", "prusa", "all3dp"]
+    sources: ["prusa-pp", "matterhackers", "simplify3d"]
   },
   {
     id: "pvb",
@@ -1590,7 +1710,7 @@ const FILAMENT_DATA = [
     useCases: ["Vases and containers", "Light covers", "Display pieces", "Smooth surface prototypes", "Artistic prints"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["prusa", "matterhackers"]
+    sources: ["prusa-pvb", "matterhackers"]
   },
   {
     id: "bvoh",
@@ -1643,7 +1763,7 @@ const FILAMENT_DATA = [
     useCases: ["Complex geometry support", "Multi-material prints", "PETG support", "Flexible filament support", "Detailed models"],
     biodegradable: true,
     foodSafe: false,
-    sources: ["prusa", "matterhackers"]
+    sources: ["prusa-pva", "matterhackers"]
   },
   {
     id: "glow-in-dark",
@@ -2009,7 +2129,7 @@ const FILAMENT_DATA = [
     useCases: ["PLA support", "PETG support", "Quick turnaround parts", "Simple overhangs", "External supports"],
     biodegradable: false,
     foodSafe: false,
-    sources: ["matterhackers", "prusa", "ultimaker"]
+    sources: ["ultimaker-breakaway", "matterhackers"]
   },
   {
     id: "stone-brick",
