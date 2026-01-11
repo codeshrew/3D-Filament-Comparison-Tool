@@ -200,7 +200,7 @@ ul, ol {
 /* Neon Header Styles */
 .site-header.neon-header {
   background: linear-gradient(180deg, #0a0a1a 0%, #0d0d20 100%);
-  border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+  border-bottom: none;
   height: 180px;
   position: relative;
   overflow: hidden;
@@ -605,8 +605,120 @@ ul, ol {
   contain: layout style;
 }
 
+/* Light theme hero - clean light background with wave transition */
 [data-theme="light"] .hero.neon-hero {
-  background: linear-gradient(180deg, #0d0d20 0%, #0a0a1a 30%, #1a1a2e 60%, var(--color-bg-secondary) 100%);
+  background: var(--color-bg-secondary);
+  padding-top: var(--space-16);
+}
+
+/* Wave divider container */
+.hero-wave-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.hero-wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 80px;
+}
+
+/* Wave styling */
+.wave-shape {
+  fill: #0d0d20;
+}
+
+.wave-glow-1 {
+  fill: none;
+  stroke: #00f5ff;
+  stroke-width: 2;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 6px #00f5ff);
+}
+
+.wave-glow-2 {
+  fill: none;
+  stroke: #ff00ff;
+  stroke-width: 1.5;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 4px #ff00ff);
+}
+
+.wave-glow-3 {
+  fill: none;
+  stroke: #00ff88;
+  stroke-width: 1;
+  opacity: 0.4;
+  filter: drop-shadow(0 0 3px #00ff88);
+}
+
+/* Dark mode wave - header color extends into hero via wave */
+[data-theme="dark"] .wave-shape {
+  fill: #0d0d20;
+}
+
+/* Dark mode hero - slightly lighter/purple-shifted for subtle contrast */
+[data-theme="dark"] .hero.neon-hero {
+  background: linear-gradient(180deg, #12122a 0%, #151530 60%, var(--color-bg-secondary) 100%);
+  padding-top: var(--space-16);
+}
+
+/* Light mode title styling */
+[data-theme="light"] .hero-title .title-line {
+  color: var(--color-text-secondary);
+  text-shadow: none;
+}
+
+[data-theme="light"] .hero-title .title-highlight {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: none;
+}
+
+[data-theme="light"] .neon-hero .hero-subtitle {
+  color: var(--color-text-secondary);
+  text-shadow: none;
+}
+
+/* Light mode color dots - more vibrant for light bg */
+[data-theme="light"] .color-dot {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 8px var(--dot-color);
+}
+
+/* Hide glow in light mode */
+[data-theme="light"] .hero-glow {
+  display: none;
+}
+
+/* Responsive wave adjustments */
+@media (max-width: 768px) {
+  .hero-wave-divider svg {
+    height: 60px;
+  }
+
+  .hero.neon-hero {
+    padding-top: var(--space-12);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-wave-divider svg {
+    height: 40px;
+  }
+
+  .hero.neon-hero {
+    padding-top: var(--space-10);
+  }
 }
 
 /* Glow effect behind content - optimized: static glow, no animation */
