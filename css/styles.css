@@ -1446,7 +1446,7 @@ ul, ol {
     top: 0;
     left: 0;
     bottom: 0;
-    height: auto;
+    height: 100%;
     z-index: 200;
     transform: translateX(-100%);
     transition: transform var(--transition-slow);
