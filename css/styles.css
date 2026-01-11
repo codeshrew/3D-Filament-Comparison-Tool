@@ -1094,11 +1094,6 @@ ul, ol {
     order: 1;
   }
 
-  .search-input {
-    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-9);
-    font-size: var(--text-sm);
-  }
-
   .filter-toggle {
     order: 2;
     padding: var(--space-2);
