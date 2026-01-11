@@ -305,15 +305,21 @@ const App = {
   applyFilters() {
     let filtered = [...this.state.filaments];
 
-    // Search filter
+    // Search filter - match on identity-related fields with word boundary matching
+    // This prevents false matches like "Thermoplastic" matching "pla" search
+    // Word boundaries ensure "pla" matches "PLA", "CF-PLA" but not "display"
     if (this.state.searchQuery) {
       const query = this.state.searchQuery;
+      // Escape special regex characters and create word boundary pattern
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const wordBoundaryRegex = new RegExp(`\\b${escapedQuery}`, 'i');
+
       filtered = filtered.filter(f =>
-        f.name.toLowerCase().includes(query) ||
-        f.fullName.toLowerCase().includes(query) ||
+        wordBoundaryRegex.test(f.id) ||
+        wordBoundaryRegex.test(f.name) ||
+        wordBoundaryRegex.test(f.fullName) ||
         f.category.toLowerCase().includes(query) ||
-        f.useCases.some(uc => uc.toLowerCase().includes(query)) ||
-        f.description.toLowerCase().includes(query)
+        f.useCases.some(uc => wordBoundaryRegex.test(uc))
       );
     }
 
