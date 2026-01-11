@@ -122,6 +122,23 @@ const App = {
 
   // Bind event listeners
   bindEvents() {
+    // Listen for system dark mode preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't explicitly saved a theme preference
+      const savedTheme = localStorage.getItem('filament-compare-theme');
+      if (!savedTheme) {
+        this.state.theme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', this.state.theme);
+        ChartModule.updateTheme();
+        this.state.filteredFilaments.forEach(filament => {
+          ChartModule.createMiniRadar(`chart-${filament.id}`, filament);
+        });
+        if (this.state.selectedForComparison.length >= 2) {
+          ChartModule.createComparisonRadar('comparison-chart', this.state.selectedForComparison);
+        }
+      }
+    });
+
     // Search
     this.elements.searchInput.addEventListener('input', this.debounce(() => {
       this.state.searchQuery = this.elements.searchInput.value.trim().toLowerCase();
