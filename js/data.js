@@ -137,12 +137,6 @@ const DATA_SOURCES = {
     url: "https://help.prusa3d.com/article/pei-ultem_725809",
     shortName: "Prusa PEI"
   },
-  // Ultimaker support materials
-  "ultimaker-breakaway": {
-    name: "Ultimaker Breakaway Guide",
-    url: "https://ultimaker.com/learn/which-3d-printing-supports-to-use-pla-pva-or-breakaway/",
-    shortName: "Ultimaker"
-  },
   // Simplify3D material-specific pages
   "simplify3d-abs": {
     name: "Simplify3D ABS Guide",
@@ -2079,57 +2073,6 @@ const FILAMENT_DATA = [
     biodegradable: true,
     foodSafe: true,
     sources: ["all3dp", "matterhackers"]
-  },
-  {
-    id: "breakaway",
-    name: "Breakaway",
-    fullName: "Breakaway Support Material",
-    category: "support",
-    difficulty: "intermediate",
-    description: "Mechanical breakaway support material that separates cleanly without dissolution. Faster post-processing than soluble supports.",
-    color: "#fef9c3",
-    temperatures: {
-      nozzle: { min: 200, max: 240, recommended: 220 },
-      bed: { min: 50, max: 70, recommended: 60 }
-    },
-    mechanicalProperties: {
-      tensileStrength: { value: 45, unit: "MPa" }
-    },
-    ratings: {
-      strength: 5,
-      flexibility: 3,
-      heatResistance: 4,
-      uvResistance: 3,
-      chemicalResistance: 3,
-      easeOfPrinting: 7,
-      layerAdhesion: 6,
-      surfaceQuality: 6
-    },
-    requirements: {
-      enclosure: false,
-      hardenedNozzle: false,
-      dryingRequired: false,
-      ventilation: false,
-      dualExtruder: true
-    },
-    cost: { category: "mid", min: 30, max: 55 },
-    pros: [
-      "No dissolution needed",
-      "Fast post-processing",
-      "Longer shelf life than PVA",
-      "Less moisture sensitive",
-      "Works with many materials"
-    ],
-    cons: [
-      "May leave marks on surface",
-      "Not for complex internal geometries",
-      "Manual removal required",
-      "Less clean than soluble supports"
-    ],
-    useCases: ["PLA support", "PETG support", "Quick turnaround parts", "Simple overhangs", "External supports"],
-    biodegradable: false,
-    foodSafe: false,
-    sources: ["ultimaker-breakaway", "matterhackers"]
   },
   {
     id: "stone-brick",
