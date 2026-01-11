@@ -197,6 +197,14 @@ ul, ol {
   height: var(--header-height);
 }
 
+/* Hidden SVG definitions container */
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 /* Neon Header Styles */
 .site-header.neon-header {
   background: linear-gradient(180deg, #0a0a1a 0%, #0d0d20 100%);
@@ -205,6 +213,24 @@ ul, ol {
   position: relative;
   overflow: visible;
   contain: style;
+}
+
+/* Light mode: clip header to wave shape so dark bg ends at wave boundary */
+[data-theme="light"] .site-header.neon-header {
+  height: 220px; /* Taller to account for wave clip at bottom */
+  clip-path: url(#header-wave-clip);
+}
+
+/* Larger gradient fade in light mode - animated lines must fade before clip-path (33px from bottom) */
+[data-theme="light"] .filament-bg::after {
+  height: 50px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(13, 13, 32, 0.5) 40%,
+    rgba(13, 13, 32, 0.9) 70%,
+    #0d0d20 100%
+  );
 }
 
 /* Filament Background Container - contained within header */
@@ -626,10 +652,39 @@ ul, ol {
   contain: layout style;
 }
 
-/* Light theme hero - clean light background with wave transition */
+/* Light theme hero - clean light background below the clipped header wave */
 [data-theme="light"] .hero.neon-hero {
   background: var(--color-bg-secondary);
-  padding-top: 120px; /* Push content below wave (0px offset + 80px wave + 40px buffer) */
+  padding-top: 60px;
+}
+
+/* Hide hero wave divider in light mode - using header wave divider instead */
+[data-theme="light"] .hero-wave-divider {
+  display: none;
+}
+
+/* Header wave divider - positioned at header/hero boundary (outside header to avoid clip) */
+.header-wave-divider {
+  display: none; /* Only show in light mode */
+}
+
+[data-theme="light"] .header-wave-divider {
+  display: block;
+  position: absolute;
+  top: 176px; /* Calculated: peaks at 187px, troughs at 220px */
+  left: 0;
+  right: 0;
+  width: 100%;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+[data-theme="light"] .header-wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 44px; /* Scaled to match clip-path amplitude (33px wave range) */
 }
 
 
