@@ -762,6 +762,10 @@ ul, ol {
 
 /* Responsive wave adjustments */
 @media (max-width: 768px) {
+  .header-wave-divider {
+    top: 96px; /* 140px header - 44px wave height */
+  }
+
   .hero-wave-divider svg {
     height: 60px;
   }
@@ -774,6 +778,10 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
+  .header-wave-divider {
+    top: 76px; /* 120px header - 44px wave height */
+  }
+
   .hero-wave-divider svg {
     height: 40px;
   }
