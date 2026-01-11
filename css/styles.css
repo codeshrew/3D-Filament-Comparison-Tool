@@ -668,7 +668,7 @@ ul, ol {
   width: 100%;
   line-height: 0;
   pointer-events: none;
-  z-index: 15;
+  z-index: 101; /* Must be higher than header z-index (100) */
 }
 
 .header-wave-divider svg {
