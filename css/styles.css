@@ -207,16 +207,15 @@ ul, ol {
   contain: style;
 }
 
-/* Filament Background Container - extends past header into hero */
-/* With header overflow:visible, animated lines flow into hero area */
-/* Wave lines start at y=260 from page top, so -80px extension (y=260) is safe */
+/* Filament Background Container - contained within header */
+/* Animated lines clip at header boundary; gradient above wave handles transition */
 .filament-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: -80px; /* Extend 80px past header (to y=260 from page top) */
-  overflow: visible; /* Allow animated lines to flow without clipping */
+  bottom: 0; /* Stay within header bounds */
+  overflow: hidden; /* Clip animated lines at header edge */
   pointer-events: none;
 }
 
@@ -620,8 +619,7 @@ ul, ol {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(248, 250, 252, 0.3) 30%,
-    rgba(248, 250, 252, 0.7) 60%,
+    rgba(248, 250, 252, 0.5) 40%,
     var(--color-bg-secondary) 100%
   );
 }
@@ -638,23 +636,22 @@ ul, ol {
   z-index: 5;
 }
 
-/* Gradient fade-out for animated lines - creates clean transition */
+/* Gradient overlay - covers header-hero boundary for clean transition */
 .hero-wave-divider::before {
   content: '';
   position: absolute;
-  top: -60px; /* Extend above wave to fade animated lines */
+  top: -40px; /* Extend above wave into header overlap zone */
   left: 0;
   right: 0;
-  height: 80px;
+  height: 60px;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(13, 13, 32, 0.3) 30%,
-    rgba(13, 13, 32, 0.7) 60%,
+    rgba(13, 13, 32, 0.5) 40%,
     #0d0d20 100%
   );
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 .hero-wave-divider svg {
@@ -731,8 +728,8 @@ ul, ol {
   }
 
   .hero-wave-divider::before {
-    top: -50px;
-    height: 70px;
+    top: -30px;
+    height: 50px;
   }
 
   .hero.neon-hero,
@@ -748,8 +745,8 @@ ul, ol {
   }
 
   .hero-wave-divider::before {
-    top: -40px;
-    height: 60px;
+    top: -25px;
+    height: 40px;
   }
 
   .hero.neon-hero,
