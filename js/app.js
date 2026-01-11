@@ -654,6 +654,33 @@ const App = {
     if (filament.requirements.ventilation) requirements.push('Ventilation Recommended');
     if (filament.requirements.directDrive) requirements.push('Direct Drive Preferred');
 
+    // Mechanical properties HTML
+    let mechanicalHtml = '';
+    if (filament.mechanicalProperties && Object.keys(filament.mechanicalProperties).length > 0) {
+      const propsHtml = Object.entries(filament.mechanicalProperties).map(([key, prop]) => {
+        if (!prop || prop.value === undefined) return '';
+        const label = MECHANICAL_LABELS[key] || { name: key, description: '' };
+        return `
+          <div class="mech-prop-item" title="${label.description || ''}">
+            <span class="mech-prop-label">${label.name}</span>
+            <span class="mech-prop-value">${prop.value} ${prop.unit || ''}</span>
+          </div>
+        `;
+      }).filter(Boolean).join('');
+
+      if (propsHtml) {
+        mechanicalHtml = `
+          <div class="detail-section">
+            <h4 class="detail-section-title">Mechanical Properties</h4>
+            <div class="mechanical-properties">${propsHtml}</div>
+          </div>
+        `;
+      }
+    }
+
+    // Compatibility HTML
+    const compatibilityHtml = this.renderCompatibilityList(filament);
+
     return `
       <div class="detail-header">
         <span class="detail-badge card-badge ${filament.category}" style="background-color: ${filament.color}">${filament.category}</span>
@@ -713,6 +740,16 @@ const App = {
         </div>
       ` : ''}
 
+      ${mechanicalHtml}
+
+      <div class="detail-section">
+        <h4 class="detail-section-title">Multi-Material Compatibility</h4>
+        <p class="compatibility-intro">Shows how well this filament bonds with others for multi-material printing:</p>
+        <div class="compatibility-grid">
+          ${compatibilityHtml}
+        </div>
+      </div>
+
       <div class="detail-section">
         <h4 class="detail-section-title">Pros & Cons</h4>
         <div class="pros-cons">
@@ -739,6 +776,56 @@ const App = {
         </div>
       ` : ''}
     `;
+  },
+
+  // Render compatibility list for a filament
+  renderCompatibilityList(filament) {
+    // Safety check
+    if (!filament || !filament.id) {
+      return '<p class="compatibility-none">No compatibility data available.</p>';
+    }
+
+    // Get all filaments and their compatibility with current one
+    const compatibilities = FILAMENT_DATA.map(f => {
+      if (!f || f.id === filament.id) return null;
+      const level = getFilamentCompatibility(filament.id, f.id);
+      return { filament: f, level };
+    }).filter(Boolean);
+
+    // Group by compatibility level
+    const grouped = {
+      excellent: compatibilities.filter(c => c.level === 'excellent'),
+      good: compatibilities.filter(c => c.level === 'good'),
+      fair: compatibilities.filter(c => c.level === 'fair'),
+      poor: compatibilities.filter(c => c.level === 'poor')
+    };
+
+    // Only show levels that have filaments
+    const levels = ['excellent', 'good', 'fair', 'poor'];
+    const hasAny = levels.some(level => grouped[level].length > 0);
+
+    if (!hasAny) {
+      return '<p class="compatibility-none">No compatibility data available for this filament.</p>';
+    }
+
+    return levels.map(level => {
+      if (grouped[level].length === 0) return '';
+      return `
+        <div class="compatibility-group">
+          <div class="compatibility-level compat-${level}">
+            <span class="compat-badge">${level}</span>
+            <span class="compat-desc">${COMPATIBILITY_DESCRIPTIONS[level]}</span>
+          </div>
+          <div class="compatibility-filaments">
+            ${grouped[level].map(c => `
+              <span class="compat-filament" style="border-color: ${c.filament.color || '#888'}">
+                ${c.filament.name || 'Unknown'}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
   },
 
   // Close detail modal

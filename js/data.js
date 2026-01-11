@@ -2114,3 +2114,122 @@ const COST_LABELS = {
   mid: "$$",
   premium: "$$$"
 };
+
+// Mechanical property labels
+const MECHANICAL_LABELS = {
+  tensileStrength: { name: "Tensile Strength", description: "Maximum stress before breaking" },
+  flexuralModulus: { name: "Flexural Modulus", description: "Stiffness/rigidity of the material" },
+  heatDeflection: { name: "Heat Deflection", description: "Temperature at which material deforms under load" },
+  continuousUseTemp: { name: "Max Use Temp", description: "Maximum continuous operating temperature" },
+  shoreHardness: { name: "Shore Hardness", description: "Hardness rating for flexible materials" },
+  elongation: { name: "Elongation", description: "How much material stretches before breaking" },
+  resistivity: { name: "Resistivity", description: "Electrical resistance" },
+  surfaceResistivity: { name: "Surface Resistivity", description: "Electrical resistance across surface" }
+};
+
+// Filament compatibility matrix for multi-material printing
+// Compatibility levels: 'excellent', 'good', 'fair', 'poor', 'none'
+const FILAMENT_COMPATIBILITY = {
+  pla: {
+    pla: 'excellent', 'pla-plus': 'excellent', 'pla-cf': 'excellent', 'pla-silk': 'excellent',
+    'pla-matte': 'excellent', 'pla-glow': 'good', 'pla-wood': 'good', 'pla-metal': 'good',
+    petg: 'fair', abs: 'poor', asa: 'poor', tpu: 'fair', pva: 'excellent'
+  },
+  'pla-plus': {
+    pla: 'excellent', 'pla-plus': 'excellent', 'pla-cf': 'excellent', petg: 'fair',
+    abs: 'poor', tpu: 'fair', pva: 'excellent'
+  },
+  'pla-cf': {
+    pla: 'excellent', 'pla-plus': 'excellent', 'pla-cf': 'excellent', petg: 'fair',
+    abs: 'poor', pva: 'excellent'
+  },
+  petg: {
+    petg: 'excellent', 'petg-cf': 'excellent', pla: 'fair', 'pla-plus': 'fair',
+    abs: 'fair', asa: 'fair', tpu: 'good', pva: 'good', hips: 'fair'
+  },
+  'petg-cf': {
+    petg: 'excellent', 'petg-cf': 'excellent', pla: 'fair', abs: 'fair'
+  },
+  abs: {
+    abs: 'excellent', asa: 'excellent', 'abs-cf': 'excellent', hips: 'excellent',
+    petg: 'fair', pla: 'poor', pc: 'good', tpu: 'fair'
+  },
+  'abs-cf': {
+    abs: 'excellent', 'abs-cf': 'excellent', asa: 'excellent', hips: 'excellent', pc: 'good'
+  },
+  asa: {
+    asa: 'excellent', abs: 'excellent', 'abs-cf': 'excellent', hips: 'excellent',
+    petg: 'fair', pc: 'good'
+  },
+  tpu: {
+    tpu: 'excellent', 'tpu-soft': 'excellent', pla: 'fair', petg: 'good',
+    abs: 'fair', pva: 'good'
+  },
+  'tpu-soft': {
+    tpu: 'excellent', 'tpu-soft': 'excellent', pla: 'fair', petg: 'good'
+  },
+  nylon: {
+    nylon: 'excellent', 'nylon-cf': 'excellent', 'nylon-gf': 'excellent',
+    petg: 'fair', abs: 'fair', pc: 'good', tpu: 'good'
+  },
+  'nylon-cf': {
+    nylon: 'excellent', 'nylon-cf': 'excellent', 'nylon-gf': 'excellent', pc: 'good'
+  },
+  'nylon-gf': {
+    nylon: 'excellent', 'nylon-cf': 'excellent', 'nylon-gf': 'excellent', pc: 'good'
+  },
+  pc: {
+    pc: 'excellent', 'pc-cf': 'excellent', abs: 'good', asa: 'good',
+    nylon: 'good', petg: 'fair'
+  },
+  'pc-cf': {
+    pc: 'excellent', 'pc-cf': 'excellent', abs: 'good', nylon: 'good'
+  },
+  pva: {
+    pla: 'excellent', 'pla-plus': 'excellent', 'pla-cf': 'excellent', petg: 'good',
+    tpu: 'good', nylon: 'fair', pva: 'excellent'
+  },
+  hips: {
+    abs: 'excellent', asa: 'excellent', 'abs-cf': 'excellent', hips: 'excellent',
+    pc: 'good'
+  },
+  peek: {
+    peek: 'excellent', pekk: 'excellent', pei: 'good', ppsu: 'good', 'pps-cf': 'good'
+  },
+  pekk: {
+    peek: 'excellent', pekk: 'excellent', pei: 'good', ppsu: 'good'
+  },
+  pei: {
+    pei: 'excellent', peek: 'good', pekk: 'good', ppsu: 'excellent', pc: 'fair'
+  },
+  ppsu: {
+    ppsu: 'excellent', pei: 'excellent', peek: 'good', pekk: 'good'
+  },
+  'pps-cf': {
+    'pps-cf': 'excellent', peek: 'good', pekk: 'fair'
+  }
+};
+
+// Get compatibility between two filaments
+function getFilamentCompatibility(filamentId1, filamentId2) {
+  if (filamentId1 === filamentId2) return 'excellent';
+
+  const compat1 = FILAMENT_COMPATIBILITY[filamentId1];
+  const compat2 = FILAMENT_COMPATIBILITY[filamentId2];
+
+  // Check both directions
+  if (compat1 && compat1[filamentId2]) return compat1[filamentId2];
+  if (compat2 && compat2[filamentId1]) return compat2[filamentId1];
+
+  // Default to none if not specified
+  return 'none';
+}
+
+// Compatibility descriptions
+const COMPATIBILITY_DESCRIPTIONS = {
+  excellent: "Bonds very well, ideal for multi-material",
+  good: "Good adhesion with proper settings",
+  fair: "Usable with careful tuning",
+  poor: "Weak bond, not recommended",
+  none: "Incompatible materials"
+};
