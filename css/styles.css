@@ -208,12 +208,13 @@ ul, ol {
 }
 
 /* Filament Background Container - extends past header to cover wave area */
+/* Extends to match wave bottom (60px past header) so animated lines reach wave troughs */
 .filament-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: -70px;
+  bottom: -60px;
   overflow: hidden;
   pointer-events: none;
 }
@@ -614,15 +615,31 @@ ul, ol {
 }
 
 /* Wave divider container - positioned at bottom of header */
+/* Math: SVG is 80px tall, wave peaks at SVG y=20. To align peaks with header bottom:
+   container_top = header_bottom - 20 = 180 - 20 = 160px
+   container_bottom = 160 + 80 = 240px, so bottom offset = 240 - 180 = 60px */
 .header-wave-divider {
   position: absolute;
-  bottom: -70px;
+  bottom: -60px;
   left: 0;
   right: 0;
   width: 100%;
   line-height: 0;
   pointer-events: none;
   z-index: 5;
+}
+
+/* Pseudo-element to fill the gap above wave lines with header background */
+/* The top 20px of the 80px SVG (25%) is above the wave peaks and needs fill */
+.header-wave-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px; /* Matches SVG y=20 where wave peaks are */
+  background: #0d0d20; /* Header gradient end color */
+  z-index: -1; /* Behind the SVG wave lines */
 }
 
 .header-wave-divider svg {
