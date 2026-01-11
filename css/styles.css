@@ -763,7 +763,11 @@ ul, ol {
 /* Responsive wave adjustments */
 @media (max-width: 768px) {
   .header-wave-divider {
-    top: 96px; /* 140px header - 44px wave height */
+    top: 112px; /* 0.8 * 140px header = same ratio as desktop */
+  }
+
+  .header-wave-divider svg {
+    height: 28px; /* Scaled: 44px * (140/220) */
   }
 
   .hero-wave-divider svg {
@@ -779,7 +783,11 @@ ul, ol {
 
 @media (max-width: 480px) {
   .header-wave-divider {
-    top: 76px; /* 120px header - 44px wave height */
+    top: 96px; /* 0.8 * 120px header = same ratio as desktop */
+  }
+
+  .header-wave-divider svg {
+    height: 24px; /* Scaled: 44px * (120/220) */
   }
 
   .hero-wave-divider svg {
