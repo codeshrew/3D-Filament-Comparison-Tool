@@ -305,9 +305,9 @@ const App = {
   applyFilters() {
     let filtered = [...this.state.filaments];
 
-    // Search filter - match on identity-related fields with word boundary matching
-    // This prevents false matches like "Thermoplastic" matching "pla" search
-    // Word boundaries ensure "pla" matches "PLA", "CF-PLA" but not "display"
+    // Search filter - match only on identity fields (id, name, fullName) and category
+    // This ensures "PLA" returns only PLA-based filaments, not materials that
+    // mention PLA in useCases (like PVA's "Support material for PLA")
     if (this.state.searchQuery) {
       const query = this.state.searchQuery;
       // Escape special regex characters and create word boundary pattern
@@ -318,8 +318,7 @@ const App = {
         wordBoundaryRegex.test(f.id) ||
         wordBoundaryRegex.test(f.name) ||
         wordBoundaryRegex.test(f.fullName) ||
-        f.category.toLowerCase().includes(query) ||
-        f.useCases.some(uc => wordBoundaryRegex.test(uc))
+        f.category.toLowerCase().includes(query)
       );
     }
 
