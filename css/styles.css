@@ -2575,19 +2575,186 @@ ul, ol {
 }
 
 /* ============================================
+   Export & Share Styles
+   ============================================ */
+
+.comparison-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.comparison-export-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.export-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.export-btn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
+/* Share button in comparison panel */
+#share-comparison {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+#share-comparison svg {
+  flex-shrink: 0;
+}
+
+/* Toast info variant */
+.toast.info {
+  background: var(--color-primary);
+}
+
+/* ============================================
    Print Styles
    ============================================ */
 
 @media print {
+  /* Hide all non-essential elements */
   .site-header,
+  .hero,
   .controls-bar,
   .filter-sidebar,
+  .filter-overlay,
   .comparison-panel,
-  .modal-overlay,
-  .toast-container {
+  .toast-container,
+  .modal-close,
+  .comparison-export-actions,
+  .header-wave-divider,
+  .neon-hero {
     display: none !important;
   }
 
+  /* Reset body styles */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  /* Make modal visible and fullscreen for printing comparison */
+  .modal-overlay {
+    position: static !important;
+    display: block !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+
+  .modal-overlay[hidden] {
+    display: none !important;
+  }
+
+  #comparison-modal-overlay:not([hidden]) {
+    display: block !important;
+  }
+
+  .modal {
+    position: static !important;
+    max-width: none !important;
+    max-height: none !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+  }
+
+  .modal-content {
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  /* Comparison modal print styles */
+  .comparison-modal-header {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #333;
+  }
+
+  .comparison-modal-title {
+    color: black !important;
+    font-size: 18pt;
+  }
+
+  .comparison-full-chart {
+    max-width: 400px;
+    margin: 1rem auto;
+    page-break-inside: avoid;
+  }
+
+  .comparison-table-wrapper {
+    overflow: visible !important;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    border: 1px solid #ccc !important;
+    padding: 0.5rem !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .comparison-table th {
+    background: #f5f5f5 !important;
+    font-weight: 600;
+  }
+
+  .comparison-table .winner {
+    background: #e8f5e9 !important;
+    font-weight: 600;
+  }
+
+  .detail-section-title {
+    color: black !important;
+    font-size: 12pt;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    page-break-after: avoid;
+  }
+
+  /* Default grid view for printing */
   .content-area {
     display: block;
   }
@@ -2603,7 +2770,25 @@ ul, ol {
   .filament-card {
     page-break-inside: avoid;
     margin-bottom: 1rem;
-    box-shadow: none;
-    border: 1px solid #ccc;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    background: white !important;
+  }
+
+  .filament-card * {
+    color: black !important;
+  }
+
+  /* Hide interactive elements */
+  .card-actions,
+  .card-footer,
+  .compare-btn,
+  .detail-btn {
+    display: none !important;
+  }
+
+  /* Print footer */
+  @page {
+    margin: 1.5cm;
   }
 }

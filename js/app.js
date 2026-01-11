@@ -65,6 +65,7 @@ const App = {
       comparisonEmpty: document.getElementById('comparison-empty'),
       comparisonChartContainer: document.getElementById('comparison-chart-container'),
       clearComparison: document.getElementById('clear-comparison'),
+      shareComparison: document.getElementById('share-comparison'),
       viewComparison: document.getElementById('view-comparison'),
       modalOverlay: document.getElementById('modal-overlay'),
       modalContent: document.getElementById('modal-content'),
@@ -96,6 +97,20 @@ const App = {
       } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         this.state.theme = 'dark';
         document.documentElement.setAttribute('data-theme', 'dark');
+      }
+
+      // Check URL for shared comparison first
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedCompare = urlParams.get('compare');
+      if (sharedCompare) {
+        const ids = sharedCompare.split(',').filter(id => id.trim());
+        if (ids.length > 0) {
+          this.state.selectedForComparison = ids;
+          // Clear the URL parameter after loading (keeps URL clean)
+          const newUrl = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, '', newUrl);
+          return; // Don't load from localStorage if URL had comparison
+        }
       }
 
       const savedComparison = localStorage.getItem('filament-compare-selection');
@@ -275,6 +290,7 @@ const App = {
     // Comparison panel
     this.elements.comparisonHeader.addEventListener('click', () => this.toggleComparisonPanel());
     this.elements.clearComparison.addEventListener('click', () => this.clearComparison());
+    this.elements.shareComparison.addEventListener('click', () => this.copyShareUrl());
     this.elements.viewComparison.addEventListener('click', () => this.openComparisonModal());
 
     // Modal close
@@ -585,6 +601,7 @@ const App = {
     this.elements.comparisonBadge.textContent = count;
     this.elements.comparisonPanel.setAttribute('data-count', count);
     this.elements.viewComparison.disabled = count < 2;
+    this.elements.shareComparison.disabled = count < 2;
 
     if (count === 0) {
       this.elements.comparisonItems.innerHTML = '';
@@ -870,6 +887,12 @@ const App = {
     setTimeout(() => {
       ChartModule.createComparisonRadar('full-comparison-chart', this.state.selectedForComparison);
     }, 100);
+
+    // Bind export button events
+    document.getElementById('share-comparison-btn')?.addEventListener('click', () => this.copyShareUrl());
+    document.getElementById('export-png-btn')?.addEventListener('click', () => this.exportAsPng());
+    document.getElementById('export-csv-btn')?.addEventListener('click', () => this.exportAsCsv());
+    document.getElementById('print-comparison-btn')?.addEventListener('click', () => this.printComparison());
   },
 
   // Render comparison modal content
@@ -930,6 +953,40 @@ const App = {
     return `
       <div class="comparison-modal-header">
         <h2 class="comparison-modal-title">Filament Comparison</h2>
+        <div class="comparison-export-actions">
+          <button class="btn btn-icon export-btn" id="share-comparison-btn" title="Copy share link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+          <button class="btn btn-icon export-btn" id="export-png-btn" title="Download as PNG">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+          </button>
+          <button class="btn btn-icon export-btn" id="export-csv-btn" title="Download as CSV">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </button>
+          <button class="btn btn-icon export-btn" id="print-comparison-btn" title="Print comparison">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div class="comparison-full-chart">
@@ -1078,6 +1135,193 @@ const App = {
       toast.style.animation = 'slideOut 0.3s ease-out forwards';
       setTimeout(() => toast.remove(), 300);
     }, 3000);
+  },
+
+  // Generate shareable URL for current comparison
+  generateShareUrl() {
+    if (this.state.selectedForComparison.length < 2) {
+      return null;
+    }
+    const ids = this.state.selectedForComparison.map(f => f.id).join(',');
+    const baseUrl = window.location.origin + window.location.pathname;
+    return `${baseUrl}?compare=${ids}`;
+  },
+
+  // Copy share URL to clipboard
+  async copyShareUrl() {
+    const url = this.generateShareUrl();
+    if (!url) {
+      this.showToast('Select at least 2 filaments to share', 'error');
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      this.showToast('Share link copied to clipboard!', 'success');
+    } catch (e) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = url;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        this.showToast('Share link copied to clipboard!', 'success');
+      } catch (err) {
+        this.showToast('Failed to copy link', 'error');
+      }
+      document.body.removeChild(textArea);
+    }
+  },
+
+  // Export comparison as PNG image
+  async exportAsPng() {
+    if (this.state.selectedForComparison.length < 2) {
+      this.showToast('Select at least 2 filaments to export', 'error');
+      return;
+    }
+
+    // Check if html2canvas is loaded
+    if (typeof html2canvas === 'undefined') {
+      this.showToast('Loading export library...', 'info');
+      await this.loadHtml2Canvas();
+    }
+
+    try {
+      // Target the comparison modal content
+      const modalContent = this.elements.comparisonModalContent;
+      if (!modalContent || this.elements.comparisonModalOverlay.hidden) {
+        this.showToast('Open full comparison view first', 'error');
+        return;
+      }
+
+      this.showToast('Generating image...', 'info');
+
+      // Wait a moment for any chart animations to complete
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      const canvas = await html2canvas(modalContent, {
+        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--color-bg-primary').trim() || '#ffffff',
+        scale: 2, // Higher resolution
+        useCORS: true,
+        logging: false,
+        allowTaint: true
+      });
+
+      // Create download link
+      const link = document.createElement('a');
+      const filamentNames = this.state.selectedForComparison.map(f => f.name).join('-');
+      link.download = `filament-comparison-${filamentNames}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      this.showToast('Image downloaded!', 'success');
+    } catch (e) {
+      console.error('Export failed:', e);
+      this.showToast('Failed to export image', 'error');
+    }
+  },
+
+  // Dynamically load html2canvas library
+  loadHtml2Canvas() {
+    return new Promise((resolve, reject) => {
+      if (typeof html2canvas !== 'undefined') {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+      script.onload = resolve;
+      script.onerror = () => reject(new Error('Failed to load html2canvas'));
+      document.head.appendChild(script);
+    });
+  },
+
+  // Print comparison
+  printComparison() {
+    if (this.state.selectedForComparison.length < 2) {
+      this.showToast('Select at least 2 filaments to print', 'error');
+      return;
+    }
+
+    // If comparison modal isn't open, open it first
+    if (this.elements.comparisonModalOverlay.hidden) {
+      this.openComparisonModal();
+      // Wait for modal to render before printing
+      setTimeout(() => window.print(), 300);
+    } else {
+      window.print();
+    }
+  },
+
+  // Export comparison data as CSV
+  exportAsCsv() {
+    if (this.state.selectedForComparison.length < 2) {
+      this.showToast('Select at least 2 filaments to export', 'error');
+      return;
+    }
+
+    const filaments = this.state.selectedForComparison;
+    const properties = Object.keys(filaments[0].ratings);
+
+    // Build CSV header
+    const headers = ['Property', ...filaments.map(f => f.name)];
+    const rows = [headers];
+
+    // Add property rows
+    properties.forEach(prop => {
+      const label = PROPERTY_LABELS[prop] || prop;
+      const row = [label, ...filaments.map(f => f.ratings[prop])];
+      rows.push(row);
+    });
+
+    // Add separator
+    rows.push([]);
+    rows.push(['Print Settings']);
+
+    // Add settings rows
+    const settings = [
+      { label: 'Nozzle Temp (°C)', getValue: f => `${f.temperatures.nozzle.min}-${f.temperatures.nozzle.max}` },
+      { label: 'Bed Temp (°C)', getValue: f => `${f.temperatures.bed.min}-${f.temperatures.bed.max}` },
+      { label: 'Difficulty', getValue: f => DIFFICULTY_LABELS[f.difficulty] },
+      { label: 'Enclosure Required', getValue: f => f.requirements.enclosure ? 'Yes' : 'No' },
+      { label: 'Hardened Nozzle', getValue: f => f.requirements.hardenedNozzle ? 'Yes' : 'No' },
+      { label: 'Food Safe', getValue: f => f.foodSafe ? 'Yes' : 'No' },
+      { label: 'Biodegradable', getValue: f => f.biodegradable ? 'Yes' : 'No' },
+      { label: 'Cost Category', getValue: f => f.cost.category },
+      { label: 'Price Range ($/kg)', getValue: f => `${f.cost.min}-${f.cost.max}` }
+    ];
+
+    settings.forEach(setting => {
+      const row = [setting.label, ...filaments.map(f => setting.getValue(f))];
+      rows.push(row);
+    });
+
+    // Convert to CSV string
+    const csvContent = rows.map(row =>
+      row.map(cell => {
+        // Escape quotes and wrap in quotes if contains comma
+        const str = String(cell);
+        if (str.includes(',') || str.includes('"')) {
+          return `"${str.replace(/"/g, '""')}"`;
+        }
+        return str;
+      }).join(',')
+    ).join('\n');
+
+    // Create and trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const filamentNames = filaments.map(f => f.name).join('-');
+    link.download = `filament-comparison-${filamentNames}.csv`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    URL.revokeObjectURL(link.href);
+
+    this.showToast('CSV downloaded!', 'success');
   },
 
   // Utility: Debounce function
