@@ -610,31 +610,51 @@ ul, ol {
 }
 
 /* Light theme hero - clean light background with wave transition */
-/* Wave positioned at top:60px + 80px tall = content starts at ~160px into hero */
 [data-theme="light"] .hero.neon-hero {
   background: var(--color-bg-secondary);
-  padding-top: 180px; /* Push content below wave (60px offset + 80px wave + 40px buffer) */
+  padding-top: 120px; /* Push content below wave (0px offset + 80px wave + 40px buffer) */
 }
 
-/* Wave divider container - positioned below filament animation zone */
-/*
- * POSITIONING MATH:
- * - Header height: 180px (ends at y=180 from page top)
- * - Filament-bg extends to: bottom: -40px (ends at y=220 from page top)
- * - Wave at top: 60px means wave container starts at y=240 from page top
- * - Wave SVG is 80px tall, viewBox 0 0 1200 80
- * - Wave glow lines at y=20-80 in viewBox → y=260-320 from page top
- * - Buffer zone: 40px between filament-bg end (y=220) and wave lines (y=260)
- */
+/* Light theme gradient fade - uses light background color */
+[data-theme="light"] .hero-wave-divider::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(248, 250, 252, 0.3) 30%,
+    rgba(248, 250, 252, 0.7) 60%,
+    var(--color-bg-secondary) 100%
+  );
+}
+
+/* Wave divider container - positioned at top of hero with fade gradient above */
 .hero-wave-divider {
   position: absolute;
-  top: 60px; /* Start 60px into hero (at y=240 from page top) */
+  top: 0;
   left: 0;
   right: 0;
   width: 100%;
   line-height: 0;
   pointer-events: none;
   z-index: 5;
+}
+
+/* Gradient fade-out for animated lines - creates clean transition */
+.hero-wave-divider::before {
+  content: '';
+  position: absolute;
+  top: -60px; /* Extend above wave to fade animated lines */
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(13, 13, 32, 0.3) 30%,
+    rgba(13, 13, 32, 0.7) 60%,
+    #0d0d20 100%
+  );
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero-wave-divider svg {
@@ -669,10 +689,9 @@ ul, ol {
 }
 
 /* Dark mode hero - slightly lighter/purple-shifted for subtle contrast */
-/* Wave positioned at top:60px + 80px tall = content starts at ~160px into hero */
 [data-theme="dark"] .hero.neon-hero {
-  background: linear-gradient(180deg, #12122a 0%, #151530 60%, var(--color-bg-secondary) 100%);
-  padding-top: 180px; /* Push content below wave (60px offset + 80px wave + 40px buffer) */
+  background: linear-gradient(180deg, #0d0d20 0%, #12122a 40%, #151530 70%, var(--color-bg-secondary) 100%);
+  padding-top: 120px; /* Push content below wave (0px offset + 80px wave + 40px buffer) */
 }
 
 /* Light mode title styling */
@@ -707,34 +726,36 @@ ul, ol {
 
 /* Responsive wave adjustments */
 @media (max-width: 768px) {
-  .hero-wave-divider {
-    top: 40px; /* Less offset on tablet */
+  .hero-wave-divider svg {
+    height: 60px;
   }
 
+  .hero-wave-divider::before {
+    top: -50px;
+    height: 70px;
+  }
+
+  .hero.neon-hero,
+  [data-theme="light"] .hero.neon-hero,
+  [data-theme="dark"] .hero.neon-hero {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 480px) {
   .hero-wave-divider svg {
+    height: 40px;
+  }
+
+  .hero-wave-divider::before {
+    top: -40px;
     height: 60px;
   }
 
   .hero.neon-hero,
   [data-theme="light"] .hero.neon-hero,
   [data-theme="dark"] .hero.neon-hero {
-    padding-top: 140px; /* 40px offset + 60px wave + 40px buffer */
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-wave-divider {
-    top: 30px; /* Even less offset on mobile */
-  }
-
-  .hero-wave-divider svg {
-    height: 40px;
-  }
-
-  .hero.neon-hero,
-  [data-theme="light"] .hero.neon-hero,
-  [data-theme="dark"] .hero.neon-hero {
-    padding-top: 100px; /* 30px offset + 40px wave + 30px buffer */
+    padding-top: 80px;
   }
 }
 
