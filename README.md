@@ -4,7 +4,11 @@ An interactive, mobile-responsive web application for comparing 3D printing fila
 
 **[Live Demo](https://codeshrew.github.io/3D-Filament-Comparison-Tool/)** | [GitHub Repository](https://github.com/codeshrew/3D-Filament-Comparison-Tool)
 
-![3D Filament Comparison Tool Screenshot](screenshot.png)
+### Light Mode
+![Light Mode](screenshots/light-mode.png)
+
+### Dark Mode
+![Dark Mode](screenshots/dark-mode.png)
 
 ## Features
 
