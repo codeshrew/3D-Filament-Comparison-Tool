@@ -636,7 +636,7 @@ ul, ol {
 /* Wave divider container - positioned at top of hero with fade gradient above */
 .hero-wave-divider {
   position: absolute;
-  top: 0;
+  top: -10px;
   left: 0;
   right: 0;
   width: 100%;
