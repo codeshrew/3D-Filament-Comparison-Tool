@@ -2,6 +2,10 @@
 
 An interactive, mobile-responsive web application for comparing 3D printing filament properties, print settings, and use cases.
 
+**[Live Demo](https://codeshrew.github.io/3D-Filament-Comparison-Tool/)** | [GitHub Repository](https://github.com/codeshrew/3D-Filament-Comparison-Tool)
+
+![3D Filament Comparison Tool Screenshot](screenshot.png)
+
 ## Features
 
 - **37 Filament Types**: Comprehensive database including standard (PLA, PETG, PHA), engineering (ABS, ASA, Nylon, PC, POM, CPE), flexible (TPU, TPE), composite (Carbon Fiber, Glass Fiber, Wood, Metal-filled), support materials (PVA, BVOH, HIPS, Breakaway), specialty (Silk, Glow-in-Dark, Conductive, ESD-Safe), and high-performance (PEEK, PEI, PEKK, PPS-CF, PPSU)
@@ -70,7 +74,7 @@ This site is deployed using GitHub Pages. To deploy your own:
 4. Select the `main` branch and `/ (root)` folder
 5. Save and wait for deployment
 
-The site will be available at `https://[username].github.io/3D-Printing/`
+The site will be available at `https://[username].github.io/3D-Filament-Comparison-Tool/`
 
 ## Local Development
 
