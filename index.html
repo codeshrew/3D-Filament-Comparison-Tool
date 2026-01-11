@@ -1,6 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
+  <!-- Early theme detection to prevent flash of wrong theme -->
+  <script>
+    (function() {
+      // Check URL parameter first (for screenshots/testing)
+      var urlParams = new URLSearchParams(window.location.search);
+      var urlTheme = urlParams.get('theme');
+      var theme = urlTheme || localStorage.getItem('filament-compare-theme');
+      if (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', theme || 'light');
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Compare 37 3D printing filaments side-by-side. Interactive charts, detailed specs, mechanical properties, and print settings for PLA, PETG, ABS, TPU, Nylon, PEEK, and more.">
