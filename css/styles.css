@@ -2397,6 +2397,46 @@ ul, ol {
   margin: 0 auto var(--space-6);
 }
 
+/* Comparison Modal Mobile Styles */
+@media (max-width: 640px) {
+  .comparison-table {
+    min-width: 400px;
+  }
+
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    max-width: 100px;
+    width: 100px;
+    font-size: var(--text-sm);
+    word-wrap: break-word;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .comparison-table {
+    min-width: 320px;
+  }
+
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    max-width: 80px;
+    width: 80px;
+    font-size: var(--text-xs);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+}
+
 /* ============================================
    Toast Notifications
    ============================================ */
