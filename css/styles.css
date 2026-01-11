@@ -207,15 +207,16 @@ ul, ol {
   contain: style;
 }
 
-/* Filament Background Container - extends slightly past header */
-/* With header overflow:visible, animated lines flow a bit into hero */
+/* Filament Background Container - extends past header into hero */
+/* With header overflow:visible, animated lines flow into hero area */
+/* Wave lines start at y=260 from page top, so -80px extension (y=260) is safe */
 .filament-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: -40px; /* Extend 40px past header (to y=220 from page top) */
-  overflow: hidden;
+  bottom: -80px; /* Extend 80px past header (to y=260 from page top) */
+  overflow: visible; /* Allow animated lines to flow without clipping */
   pointer-events: none;
 }
 
