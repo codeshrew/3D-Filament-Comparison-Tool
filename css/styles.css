@@ -203,17 +203,19 @@ ul, ol {
   border-bottom: none;
   height: 180px;
   position: relative;
-  overflow: hidden;
-  contain: layout style paint;
+  overflow: visible;
+  contain: style;
 }
 
-/* Filament Background Container */
+/* Filament Background Container - extends past header to cover wave area */
 .filament-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -40px;
   overflow: hidden;
   pointer-events: none;
-  contain: strict;
 }
 
 .filament-strands {
@@ -611,19 +613,19 @@ ul, ol {
   padding-top: var(--space-16);
 }
 
-/* Wave divider container */
-.hero-wave-divider {
+/* Wave divider container - positioned at bottom of header */
+.header-wave-divider {
   position: absolute;
-  top: 0;
+  bottom: -40px;
   left: 0;
   right: 0;
   width: 100%;
-  overflow: hidden;
   line-height: 0;
   pointer-events: none;
+  z-index: 5;
 }
 
-.hero-wave-divider svg {
+.header-wave-divider svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
@@ -702,7 +704,11 @@ ul, ol {
 
 /* Responsive wave adjustments */
 @media (max-width: 768px) {
-  .hero-wave-divider svg {
+  .header-wave-divider {
+    bottom: -30px;
+  }
+
+  .header-wave-divider svg {
     height: 60px;
   }
 
@@ -712,7 +718,11 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
-  .hero-wave-divider svg {
+  .header-wave-divider {
+    bottom: -20px;
+  }
+
+  .header-wave-divider svg {
     height: 40px;
   }
 
