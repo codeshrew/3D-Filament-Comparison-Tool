@@ -4,10 +4,12 @@ An interactive, mobile-responsive web application for comparing 3D printing fila
 
 ## Features
 
-- **12+ Filament Types**: PLA, PETG, ABS, TPU, Nylon, ASA, Polycarbonate, HIPS, PVA, Wood-filled PLA, Carbon Fiber, and Silk/Metallic PLA
+- **37 Filament Types**: Comprehensive database including standard (PLA, PETG, PHA), engineering (ABS, ASA, Nylon, PC, POM, CPE), flexible (TPU, TPE), composite (Carbon Fiber, Glass Fiber, Wood, Metal-filled), support materials (PVA, BVOH, HIPS, Breakaway), specialty (Silk, Glow-in-Dark, Conductive, ESD-Safe), and high-performance (PEEK, PEI, PEKK, PPS-CF, PPSU)
+- **Mechanical Properties**: Real-world data including tensile strength (MPa), flexural modulus (GPa), and heat deflection temperature (°C)
+- **Filament Compatibility Matrix**: Multi-material printing compatibility ratings for combining different filaments
 - **Interactive Radar Charts**: Visual property comparisons using Chart.js
 - **Side-by-Side Comparison**: Compare up to 4 filaments simultaneously with overlay charts
-- **Advanced Filtering**: Filter by category, difficulty, temperature range, and special requirements
+- **Advanced Filtering**: Filter by 7 material categories, 4 difficulty levels, temperature range, and special requirements
 - **Smart Search**: Search by name, material type, or use case
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
 - **Dark/Light Theme**: Automatic detection with manual toggle
@@ -25,6 +27,13 @@ Each filament is rated on a 1-10 scale for:
 - Layer Adhesion
 - Surface Quality
 
+## Mechanical Properties
+
+Real-world engineering data for each filament:
+- Tensile Strength (MPa) - Maximum stress before breaking
+- Flexural Modulus (GPa) - Stiffness/rigidity measure
+- Heat Deflection Temperature (°C) - Temperature at which material deforms under load
+
 ## Print Settings
 
 Detailed print settings for each filament including:
@@ -33,6 +42,15 @@ Detailed print settings for each filament including:
 - Special requirements (enclosure, hardened nozzle, drying)
 - Difficulty level
 - Cost range
+
+## Filament Compatibility
+
+Multi-material printing compatibility matrix showing how well different filaments bond together:
+- **Excellent**: Strong chemical bond, ideal for multi-material prints
+- **Good**: Reliable adhesion for most applications
+- **Fair**: Moderate adhesion, may work with proper settings
+- **Poor**: Weak adhesion, not recommended
+- **None**: Incompatible materials
 
 ## Technology Stack
 
