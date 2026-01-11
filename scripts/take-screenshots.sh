@@ -38,9 +38,9 @@ if ! curl -s "http://localhost:$PORT" > /dev/null 2>&1; then
     python3 -m http.server $PORT &
     SERVER_PID=$!
     sleep 2
-    trap "kill $SERVER_PID 2>/dev/null" EXIT
 else
     echo "Server already running on port $PORT"
+    SERVER_PID=""
 fi
 
 # Create screenshots directory if needed
@@ -48,7 +48,11 @@ mkdir -p "$SCREENSHOTS_DIR"
 
 # Create temp directory for puppeteer
 TEMP_DIR=$(mktemp -d)
-trap "rm -rf $TEMP_DIR; kill $SERVER_PID 2>/dev/null" EXIT
+cleanup() {
+    rm -rf "$TEMP_DIR" 2>/dev/null || true
+    [ -n "$SERVER_PID" ] && kill "$SERVER_PID" 2>/dev/null || true
+}
+trap cleanup EXIT
 
 # Install puppeteer in temp directory
 echo "Installing Puppeteer..."
@@ -85,7 +89,7 @@ await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
 await page.evaluate(() => {
     document.documentElement.setAttribute('data-theme', 'light');
 });
-await page.waitForTimeout(500); // Allow CSS transitions
+await new Promise(r => setTimeout(r, 500)); // Allow CSS transitions
 
 await page.screenshot({ path: `${outputDir}/light-mode.png` });
 console.log('Saved light-mode.png');
@@ -96,7 +100,7 @@ await page.evaluate(() => {
     localStorage.setItem('filament-compare-theme', 'dark');
     document.documentElement.setAttribute('data-theme', 'dark');
 });
-await page.waitForTimeout(500); // Allow CSS transitions
+await new Promise(r => setTimeout(r, 500)); // Allow CSS transitions
 
 await page.screenshot({ path: `${outputDir}/dark-mode.png` });
 console.log('Saved dark-mode.png');
