@@ -208,15 +208,33 @@ ul, ol {
 }
 
 /* Filament Background Container - contained within header */
-/* Animated lines clip at header boundary; gradient above wave handles transition */
+/* Animated lines fade out at bottom via ::after gradient */
 .filament-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0; /* Stay within header bounds */
-  overflow: hidden; /* Clip animated lines at header edge */
+  bottom: 0;
+  overflow: hidden;
   pointer-events: none;
+}
+
+/* Gradient fade at bottom of header - fades animated lines before they clip */
+.filament-bg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(13, 13, 32, 0.6) 40%,
+    #0d0d20 100%
+  );
+  pointer-events: none;
+  z-index: 10;
 }
 
 .filament-strands {
@@ -614,15 +632,6 @@ ul, ol {
   padding-top: 120px; /* Push content below wave (0px offset + 80px wave + 40px buffer) */
 }
 
-/* Light theme gradient fade - uses light background color */
-[data-theme="light"] .hero-wave-divider::before {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(248, 250, 252, 0.5) 40%,
-    var(--color-bg-secondary) 100%
-  );
-}
 
 /* Wave divider container - positioned at top of hero with fade gradient above */
 .hero-wave-divider {
@@ -636,23 +645,7 @@ ul, ol {
   z-index: 5;
 }
 
-/* Gradient overlay - covers header-hero boundary for clean transition */
-.hero-wave-divider::before {
-  content: '';
-  position: absolute;
-  top: -40px; /* Extend above wave into header overlap zone */
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(13, 13, 32, 0.5) 40%,
-    #0d0d20 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
+/* No longer need gradient here - filament-bg::after handles the fade */
 
 .hero-wave-divider svg {
   position: relative;
@@ -727,11 +720,6 @@ ul, ol {
     height: 60px;
   }
 
-  .hero-wave-divider::before {
-    top: -30px;
-    height: 50px;
-  }
-
   .hero.neon-hero,
   [data-theme="light"] .hero.neon-hero,
   [data-theme="dark"] .hero.neon-hero {
@@ -741,11 +729,6 @@ ul, ol {
 
 @media (max-width: 480px) {
   .hero-wave-divider svg {
-    height: 40px;
-  }
-
-  .hero-wave-divider::before {
-    top: -25px;
     height: 40px;
   }
 
