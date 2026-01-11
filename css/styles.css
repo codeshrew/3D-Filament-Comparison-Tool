@@ -757,7 +757,7 @@ ul, ol {
 
 .controls-bar {
   position: sticky;
-  top: var(--header-height);
+  top: 0;
   z-index: 50;
   background: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border);
@@ -936,6 +936,10 @@ ul, ol {
   background: var(--color-bg-primary);
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-self: flex-start;
 }
 
 .filter-sidebar-header {
@@ -1250,6 +1254,7 @@ ul, ol {
     top: 0;
     left: 0;
     bottom: 0;
+    height: auto;
     z-index: 200;
     transform: translateX(-100%);
     transition: transform var(--transition-slow);
