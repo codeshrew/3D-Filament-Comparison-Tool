@@ -652,9 +652,9 @@ ul, ol {
   contain: layout style;
 }
 
-/* Light theme hero - clean light background below the clipped header wave */
+/* Light theme hero - match body background for seamless transition */
 [data-theme="light"] .hero.neon-hero {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   padding-top: 60px;
 }
 
