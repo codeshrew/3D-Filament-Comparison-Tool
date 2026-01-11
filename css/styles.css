@@ -213,7 +213,7 @@ ul, ol {
   top: 0;
   left: 0;
   right: 0;
-  bottom: -40px;
+  bottom: -70px;
   overflow: hidden;
   pointer-events: none;
 }
@@ -616,7 +616,7 @@ ul, ol {
 /* Wave divider container - positioned at bottom of header */
 .header-wave-divider {
   position: absolute;
-  bottom: -40px;
+  bottom: -70px;
   left: 0;
   right: 0;
   width: 100%;
@@ -632,9 +632,9 @@ ul, ol {
   height: 80px;
 }
 
-/* Wave styling */
+/* Wave styling - transparent to show animated lines through */
 .wave-shape {
-  fill: #0d0d20;
+  fill: none;
 }
 
 .wave-glow-1 {
@@ -661,9 +661,9 @@ ul, ol {
   filter: drop-shadow(0 0 3px #00ff88);
 }
 
-/* Dark mode wave - header color extends into hero via wave */
+/* Dark mode wave - transparent to show animated lines */
 [data-theme="dark"] .wave-shape {
-  fill: #0d0d20;
+  fill: none;
 }
 
 /* Dark mode hero - slightly lighter/purple-shifted for subtle contrast */
